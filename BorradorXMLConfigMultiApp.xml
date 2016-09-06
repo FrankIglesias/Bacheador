@@ -1,0 +1,22 @@
+
+<TP-ACyEDA>
+	<app name="Audio To Video" command="c:/comandos/ffmpeg.exe">
+		<config name="WAV+JPG=MKV">
+		<invoke>ffmpeg -i [AUDIO] -max [DURMAX] -loop 1 -i [IMAGE] -vcodec libx264 -preset slow -crf 20 -threads 0 -acodec copy -shortest [VIDEO]</invoke>
+			<param name="AUDIO" class="tp.control.FileChooser" label="Archivo de audio">
+				<control-type name="FILE-CHOOSER">
+					<def-dir>/usr/pablo/mis canciones</def-dir>
+					<tipo-arch>mp3,wav,wma</tipo-arch>
+				</control-type>
+			</param>
+			<param name="DURMAX" class="" label="Duracion Maxima del Video">
+				<control-type name="TEXTFIELD">
+					<def-dir>100</def-dir>
+					<regex>9*|99</tipo-arch>
+				</control-type>
+			</param>
+
+		</config>
+	</app>
+</TP-ACyEDA>
+
