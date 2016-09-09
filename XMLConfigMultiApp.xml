@@ -1,99 +1,98 @@
 <TP-ACyEDA>
-	<app name="Audio To Video" command="c:/comandos/ffmpeg.exe">
-		<config name="WAV+JPG=MKV">
-		<invoke>ffmpeg -i [AUDIO] -max [DURMAX] -loop 1 -i [IMAGE] -vcodec libx264 -preset slow -crf 20 -threads 0 -acodec copy -shortest [VIDEO]</invoke>
-			<param name="AUDIO" class="tp.control.FileChooser" label="Archivo de audio">
+	<app tittle="Audio To Video">
+		<config command="c:/comandos/ffmpeg.exe" params = "-i [AUDIO] -max [DURMAX] -loop 1 -i [IMAGE] -vcodec libx264 -preset slow -crf 20 -threads 0 -acodec copy -shortest [VIDEO]"></command>
+			<control  name="AUDIO" class="tp.control.FileChooser" label="Archivo de audio">
 				<control-type name="FILE-CHOOSER">
 					<def-dir>/usr/pablo/mis canciones</def-dir>
 						<extension>mp3<extension>
 						<extension>wav<extension>
 						<extension>wma<extension>
 				</control-type>
-			</param>
-			<param name="DURMAX" class="" label="Duracion Maxima del Video">
+			</control >
+			<control  name="DURMAX" class="" label="Duracion Maxima del Video">
 				<control-type name="TEXTFIELD">
 					<def-dir>100</def-dir>
 					<!--<regex>9*|99</tipo-arch>-->
 				</control-type>
-			</param>
-			<param name="VIDEO" class="" label="Ruta de salida del video">
+			</control >
+			<control  name="VIDEO" class="" label="Ruta de salida del video">
 				<control-type name="FILE-CHOOSER">
 					<def-dir>/usr/pablo/mis canciones</def-dir>
 					<tipo-arch>
 						<extension>mkv</extension>
 					</tipo-arch>
 				</control-type>
-			</param>
+			</control>
 		</config>
 	</app>
-	<app name="Video Extract" command="c:/comandos/ffmpeg.exe">
-		<config>
-		<invoke>ffmpeg -i [VIDEO] -ss[DESDE] -to[HASTA] -vcodec libx264 -acodec libvo_aacenc [OUTPUT]</invoke>
-			<param name="VIDEO" class="tp.control.FileChooser" label="Archivo de video">
+	<app tittle="Video Extract">
+	<config command="c:/comandos/ffmpeg.exe", params  =" -i [VIDEO] -ss[DESDE] -to[HASTA] -vcodec libx264 -acodec libvo_aacenc [OUTPUT] ">
+			<control name="VIDEO" class="tp.control.FileChooser" label="Archivo de video">
 				<control-type name="FILE-CHOOSER">
 					<def-dir></def-dir>
 					<tipo-arch><extension>mp3</extension></tipo-arch>
 				</control-type>
-			</param>
-			<param name="DESDE" class="" label="Hora, minuto, segundo desde">
+			</control>
+			<control name="DESDE" class="" label="Hora, minuto, segundo desde">
 					<control-type name="TEXTFIELD">
 						<def-dir></def-dir>
 					</control-type>
-			</param>
-			<param name="HASTA" class"" label "Hora, minuto, segundo hasta">
+			</control>
+			<control name="HASTA" class"" label "Hora, minuto, segundo hasta">
 					<control-type name="TEXTFIELD">
 						<def-dir></def-dir>
 					</control-type>
-			</param>
-			<param name="OUTPUT" class"" label="Donde guardar el video">
+			</control>
+			<control name="OUTPUT" class"" label="Donde guardar el video">
 				<control-type name="FILE-CHOOSER">
 					<def-dir>/usr/pablo/mis canciones</def-dir>
 					<tipo-arch>
 						<extension>mkv</extension>
 					</tipo-arch>
 				</control-type>
-			</param>
+			</control>
 		</config>
 	</app>
-	<app name="Rotate Video" command="c:/comandos/ffmpeg.exe">
-		<config>
-		<invoke>ffmpeg -i [VIDEO] -filter:v "rotate=[ANGULO]*PI/180" -o [OUTPUT]</invoke>
-			<param name="VIDEO" class="tp.control.FileChooser" label="Archivo de video">
+	<app tittle="Rotate Video" 
+	<config command="c:/comandos/ffmpeg.exe" params=" -i [VIDEO] -filter:v "rotate=[ANGULO]*PI/180" -o [OUTPUT]">
+			<control name="VIDEO" class="tp.control.FileChooser" label="Archivo de video">
 				<control-type name="FILE-CHOOSER">
 					<def-dir></def-dir>
 					<tipo-arch>mp3</tipo-arch>
 				</control-type>
-			</param>
-			<param name="ANGULO" class="" label="Angulo de rotacion">
+			</control>
+			<control name="ANGULO" class="tp.control.Angulo" label="Angulo de rotacion">
 				<control-type name="TEXTFIELD">
 					<def-dir></def-dir>
 					<tipo-arch></tipo-arch>
 				</control-type>
-			</param>
-			<param name="OUTPUT" class="" label="Donde guardar el video"><control-type name="FILE-CHOOSER">
+			</control>
+			<control name="OUTPUT" class="" label="Donde guardar el video">
+				<control-type name="FILE-CHOOSER">
 					<def-dir>/usr/pablo/mis canciones</def-dir>
 					<tipo-arch>
 						<extension>mkv</extension>
 					</tipo-arch>
 				</control-type>
-			</param>	
+			</control>	
 		</config>
 	</app>
-	<app name="Join Wav" command="c:/comandos/ffmpeg.exe">
+	<app tittle="Join Wav">
+		
+	<config command="c:/comandos/ffmpeg.exe"  params = " -f concat -c [LISTA] -c copy  [VIDEO]">
 		<config>
-			<invoke>ffmpeg -f concat -c [LISTA] -c copy  [VIDEO]</invoke>
-			<param name="LISTA" class="tp.control.FileChooser" label="Lista de videos contenida en un txt">
+			<control name="LISTA" class="tp.control.FileChooser" label="Lista de videos contenida en un txt">
 				<control-type name="FILE-CHOOSER">
 					<def-dir></def-dir>
 					<tipo-arch><extension>txt</extension></tipo-arch></control-type></param>
-			<param name="OUTPUT" label="Donde guardar el video?">
+			<control name="OUTPUT" label="Donde guardar el video?">
 				<control-type name="FILE-CHOOSER">
 					<def-dir>/usr/pablo/mis canciones</def-dir>
 					<tipo-arch>
 						<extension>mkv</extension>
 					</tipo-arch>
 				</control-type>
-			</param>
+			</control>
 		</config>
 	</app>
 </TP-ACyEDA>
