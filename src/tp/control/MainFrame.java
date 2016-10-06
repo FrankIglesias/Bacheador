@@ -1,3 +1,4 @@
+package tp.control;
 
 import java.awt.Choice;
 import java.awt.Color;
@@ -29,6 +30,8 @@ import javax.swing.SpringLayout;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.JProgressBar;
 
 public class MainFrame {
 
@@ -73,18 +76,36 @@ public class MainFrame {
 		crearPanelPrincipal();
 
 		JPanel panelDinamico = new JPanel();
+		
+		JButton btnNewButton = new JButton("New button");
+		
+		JProgressBar progressBar = new JProgressBar();
 		GroupLayout groupLayout = new GroupLayout(mainframe.getContentPane());
-		groupLayout.setHorizontalGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+		groupLayout.setHorizontalGroup(
+			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addComponent(panelFijo, GroupLayout.PREFERRED_SIZE, 644, GroupLayout.PREFERRED_SIZE)
-				.addComponent(panelDinamico, GroupLayout.PREFERRED_SIZE, 644, GroupLayout.PREFERRED_SIZE));
-		groupLayout.setVerticalGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+				.addComponent(panelDinamico, GroupLayout.PREFERRED_SIZE, 644, GroupLayout.PREFERRED_SIZE)
+				.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(progressBar, GroupLayout.PREFERRED_SIZE, 514, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
+					.addComponent(btnNewButton)
+					.addContainerGap())
+		);
+		groupLayout.setVerticalGroup(
+			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
-						.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addComponent(panelFijo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-										GroupLayout.PREFERRED_SIZE)
-								.addGroup(groupLayout.createSequentialGroup().addGap(92).addComponent(panelDinamico,
-										GroupLayout.PREFERRED_SIZE, 232, GroupLayout.PREFERRED_SIZE)))
-						.addContainerGap(37, Short.MAX_VALUE)));
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addComponent(panelFijo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(92)
+							.addComponent(panelDinamico, GroupLayout.PREFERRED_SIZE, 232, GroupLayout.PREFERRED_SIZE)))
+					.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addComponent(btnNewButton)
+						.addComponent(progressBar, GroupLayout.PREFERRED_SIZE, 26, GroupLayout.PREFERRED_SIZE))
+					.addContainerGap())
+		);
 		mainframe.getContentPane().setLayout(groupLayout);
 
 		mainframe.getContentPane().add(panelDinamico);
