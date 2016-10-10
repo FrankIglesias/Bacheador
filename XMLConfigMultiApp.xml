@@ -2,7 +2,7 @@
 	<app tittle="Audio To Video">
 		<command name="ffmpeg"
 			params="-i [AUDIO] -max [DURMAX] -loop 1 -i [IMAGE] -vcodec libx264 -preset slow -crf 20 -threads 0 -acodec copy -shortest [VIDEO]" />
-		<control name="AUDIO" class="tp.control.FileChooser" label="Archivo de audio">
+		<control name="AUDIO" class="tp.control.PanelDeArchivo">
 			<control-type name="FILE-CHOOSER">
 				<def-dir>/usr/pablo/mis canciones</def-dir>
 				<tipo-arch>
@@ -18,7 +18,7 @@
 				</tipo-arch>
 			</control-type>
 		</control>
-		<control name="DURMAX" class="" label="Duracion Maxima del Video">
+		<control name="DURMAX" class="tp.control.PanelDeDuracion">
 			<control-type name="TEXTFIELD">
 				<def-dir>100</def-dir>
 			</control-type>
@@ -43,7 +43,7 @@
 	<app tittle="Video Extract">
 		<command name="ffmpeg"
 			params=" -i [VIDEO] -ss[DESDE] -to[HASTA] -vcodec libx264 -acodec libvo_aacenc [OUTPUT] " />
-		<control name="VIDEO" class="tp.control.FileChooser" label="Archivo de video">
+		<control name="VIDEO" class="tp.control.FileChooser">
 			<control-type name="FILE-CHOOSER">
 				<def-dir>/usr/pablo/mis canciones</def-dir>
 				<tipo-arch>
@@ -51,16 +51,14 @@
 				</tipo-arch>
 			</control-type>
 		</control>
-		<control name="DESDE" class="" label="Hora, minuto, segundo desde">
+		<control name="DESDE" class="tp.control.PanelDeDuracion">
 			<control-type name="TIMEFIELD" />
 		</control>
-		<control name="HASTA" class=""
-			label=" Hora , minuto , segundo
-			hasta ">
+		<control name="HASTA" class="tp.control.PanelDeDuracion">
 			<control-type name="TIMEFIELD">
 			</control-type>
 		</control>
-		<control name="OUTPUT" class="" label="Donde guardar el video">
+		<control name="OUTPUT" class="">
 			<control-type name="FILE-CHOOSER">
 				<def-dir>/usr/pablo/mis canciones</def-dir>
 				<tipo-arch>
@@ -70,19 +68,20 @@
 		</control>
 	</app>
 	<app tittle="Rotate Video">
-		<command name="ffmpeg" params=" -i [VIDEO] -filter:v " rotate=[ANGULO]*PI/180 "
-			o [ OUTPUT ] />
-		<control name="VIDEO" class="tp.control.FileChooser" label="Archivo de video">
+		<command name="ffmpeg" params=" -i [VIDEO] -filter:v "
+			rotate="[ANGULO]*PI/180
+			o [ OUTPUT ]" />
+		<control name="VIDEO" class="tp.control.FileChooser">
 			<control-type name="FILE-CHOOSER">
 				<def-dir>/usr/pablo/mis canciones</def-dir>
 				<tipo-arch>mp3</tipo-arch>
 			</control-type>
 		</control>
-		<control name="ANGULO" class="tp.control.Angulo" label="Angulo de rotacion">
+		<control name="ANGULO" class="tp.control.Angulo">
 			<control-type name="TEXTFIELD">
-				</control-type>
+			</control-type>
 		</control>
-		<control name="OUTPUT" class="" label="Donde guardar el video">
+		<control name="OUTPUT" class="tp.control.FileChooser">
 			<control-type name="FILE-CHOOSER">
 				<def-dir>/usr/pablo/mis canciones</def-dir>
 				<tipo-arch>
@@ -102,14 +101,14 @@
 					<extension>txt</extension>
 				</tipo-arch>
 			</control-type>
-		</param>
-			<control name="OUTPUT" label="Donde guardar el video?">
-				<control-type name="FILE-CHOOSER">
-					<def-dir>/usr/pablo/mis canciones</def-dir>
-					<tipo-arch>
-						<extension>mkv</extension>
-					</tipo-arch>
-				</control-type>
-			</control>
+		</control>
+		<control name="OUTPUT" label="Donde guardar el video?">
+			<control-type name="FILE-CHOOSER">
+				<def-dir>/usr/pablo/mis canciones</def-dir>
+				<tipo-arch>
+					<extension>mkv</extension>
+				</tipo-arch>
+			</control-type>
+		</control>
 	</app>
 </TP-ACyEDA>

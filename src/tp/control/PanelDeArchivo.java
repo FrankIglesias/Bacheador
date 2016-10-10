@@ -1,4 +1,8 @@
 package tp.control;
+
+import java.awt.GridBagConstraints;
+import java.awt.Insets;
+
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -6,9 +10,14 @@ import javax.swing.JTextField;
 
 @SuppressWarnings("serial")
 public class PanelDeArchivo extends JPanel {
-	
-	public PanelDeArchivo() {
+	GridBagConstraints gbc_panelDeArchivo;
 
+	public PanelDeArchivo(int i) {
+		gbc_panelDeArchivo = new GridBagConstraints();
+		gbc_panelDeArchivo.fill = GridBagConstraints.BOTH;
+		gbc_panelDeArchivo.insets = new Insets(0, 0, 5, 0);
+		gbc_panelDeArchivo.gridx = 0;
+		gbc_panelDeArchivo.gridy = i;
 		setBounds(2, 2, 638, 37);
 		setLayout(null);
 		JTextField textField = new JTextField("Ruta del archivo wav");
