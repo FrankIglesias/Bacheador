@@ -133,7 +133,30 @@ public class MainFrame {
 		PanelDeArchivo panelDeArchivo = new PanelDeArchivo(i);
 		panelConScroll.add(panelDeArchivo, panelDeArchivo.gbc_panelDeArchivo);
 	}
-
+	
+	private void cargarChoiceApps(Choice choiceApp) { //No se si es mejor hacerlo al momento de parsear el XML
+		
+		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+			DocumentBuilder builder;
+			try {
+				builder = factory.newDocumentBuilder();
+				Document doc = builder.parse("multiapp.xml");
+				NodeList listaApps = doc.getElementsByTagName("app");
+				for(int i=0;i<listaApps.getLength();i++) {
+					Element t = (Element) listaApps.item(i);
+					String titulo = t.getAttribute("tittle");
+					choiceApp.add(titulo);
+				}
+			} catch (ParserConfigurationException e) {
+				e.printStackTrace();
+			} catch (SAXException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+	}
+	
+	
 	private JPanel crearPanelPrincipal() {
 		panelFijo = new JPanel();
 		panelFijo.setLayout(new FormLayout(
@@ -146,19 +169,19 @@ public class MainFrame {
 		JLabel label = new JLabel("");
 		panelFijo.add(label, "3, 1, fill, fill");
 		Choice choiceAplicacion = new Choice();
-		choiceAplicacion.add("Elegí El programa a ser ejecutado");
-		choiceAplicacion.add("Hola bebe");
+		
 		choiceAplicacion.addPropertyChangeListener(new PropertyChangeListener() {
 			public void propertyChange(PropertyChangeEvent arg0) {
 			}
 		});
+		cargarChoiceApps(choiceAplicacion); //Uso el metodo cargarChoiceApps que esta arriba
 		JLabel Aplicacion = new JLabel("Aplicaci\u00F3n:");
 		Aplicacion.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		panelFijo.add(Aplicacion, "3, 3, default, fill");
 		panelFijo.add(choiceAplicacion, "4, 3, fill, bottom");
 
 		Choice choiceConfiguracion = new Choice();
-		choiceConfiguracion.add("Elegí el setup del programa");
+		choiceConfiguracion.add("ElegÃ­ el setup del programa");
 
 		JLabel Configuracion = new JLabel("Configuraci\u00F3n:");
 		Configuracion.setFont(new Font("Tahoma", Font.PLAIN, 11));
