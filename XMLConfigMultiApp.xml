@@ -37,7 +37,7 @@
 	</app>
 	<app tittle="Rotate Video">
 		<command name="ffmpeg "
-			params="-y -i [VIDEO] -filter:v "rotate=[ANGULO]*PI/180" [OUTPUT]" />
+			params="-y -i [VIDEO] -filter:v &#34;rotate=[ANGULO]*PI/180&#34; [OUTPUT]" />
 		<control name="VIDEO" class="tp.control.PanelDeArchivo" label="INPUT">
 			<def-dir>/usr/pablo/mis canciones</def-dir>
 			<tipo-arch>mp4</tipo-arch>
