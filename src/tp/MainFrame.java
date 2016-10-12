@@ -28,12 +28,19 @@ import com.jgoodies.forms.layout.RowSpec;
 
 import tp.control.PanelDeArchivo;
 import tp.control.PanelDeDuracion;
+import java.awt.GridBagConstraints;
+import java.awt.Insets;
+import javax.swing.JFormattedTextField;
+import javax.swing.JList;
+import javax.swing.JSpinner;
+import javax.swing.SpinnerNumberModel;
 
 public class MainFrame {
 	private String appName;
 	private JFrame mainframe;
 	private JPanel panelFijo;
 	private JPanel panelConScroll;
+	public String command;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -102,9 +109,10 @@ public class MainFrame {
 		gbl_panelConScroll.columnWidths = new int[] { 638, 0 };
 		gbl_panelConScroll.rowHeights = new int[] { 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 0 };
 		gbl_panelConScroll.columnWeights = new double[] { 1.0, Double.MIN_VALUE };
-		gbl_panelConScroll.rowWeights = new double[] { 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+		gbl_panelConScroll.rowWeights = new double[] { 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
 				Double.MIN_VALUE };
 		panelConScroll.setLayout(gbl_panelConScroll);
+
 		panelDinamico.add(scroll);
 	}
 
@@ -134,7 +142,9 @@ public class MainFrame {
 				if (mainframe.getTitle().length() > 5) {
 					panelConScroll.removeAll();
 					comboBoxConfiguraciones.removeAllItems();
+					command = "";
 				}
+				command = ReadXMLFile.getCommand(comboBoxAplicaciones.getSelectedItem().toString());
 				mainframe.setTitle(appName + " - " + comboBoxAplicaciones.getSelectedItem().toString());
 				comboBoxConfiguraciones.addItem(ReadXMLFile
 						.cargarConfiguracion(comboBoxAplicaciones.getSelectedItem().toString(), panelConScroll));

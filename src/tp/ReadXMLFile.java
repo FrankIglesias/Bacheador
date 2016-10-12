@@ -19,6 +19,7 @@ import org.xml.sax.SAXException;
 
 import tp.control.PanelDeArchivo;
 import tp.control.PanelDeDuracion;
+import tp.control.PanelDeRotacion;
 
 public class ReadXMLFile {
 	private static File fXmlFile = new File("XMLConfigMultiApp.xml");
@@ -67,34 +68,6 @@ public class ReadXMLFile {
 		return nombres;
 	}
 
-	public static String cargarConfigs(String app) {
-		NodeList listaDeApps = doc.getElementsByTagName("app");
-		Element aplicacionElegida = null;
-		Element eElement;
-		String retorno = "";
-		for (int temp = 0; temp < listaDeApps.getLength(); temp++) {
-			eElement = (Element) listaDeApps.item(temp);
-			if (eElement.getAttribute("tittle").equals(app))
-				aplicacionElegida = eElement;
-		}
-		NodeList controles = aplicacionElegida.getElementsByTagName("control");
-		for (int temp = 0; temp < controles.getLength(); temp++) {
-			eElement = (Element) controles.item(temp);
-			if (eElement.getAttribute("label").equals("INPUT")) {
-				retorno += "[" + eElement.getAttribute("name") + "]";
-
-			}
-		}
-		retorno += "=";
-		for (int temp = 0; temp < controles.getLength(); temp++) {
-			eElement = (Element) controles.item(temp);
-			if (eElement.getAttribute("label").equals("OUTPUT"))
-				retorno += "[" + eElement.getAttribute("name") + "]";
-
-		}
-		return retorno;
-	}
-
 	public static String cargarConfiguracion(String app, JPanel panel) {
 		NodeList listaDeApps = doc.getElementsByTagName("app");
 		Element aplicacionElegida = null;
@@ -109,14 +82,14 @@ public class ReadXMLFile {
 		for (int temp = 0; temp < controles.getLength(); temp++) {
 			eElement = (Element) controles.item(temp);
 			if (eElement.getAttribute("label").equals("INPUT")) {
-				retorno += "[" + eElement.getAttribute("name") + "]";
+				retorno += " [" + eElement.getAttribute("name") + "] ";
 			}
 		}
 		retorno += "=";
 		for (int temp = 0; temp < controles.getLength(); temp++) {
 			eElement = (Element) controles.item(temp);
 			if (eElement.getAttribute("label").equals("OUTPUT"))
-				retorno += "[" + eElement.getAttribute("name") + "]";
+				retorno += " [" + eElement.getAttribute("name") + "] ";
 
 		}
 		for (int temp = 0; temp < controles.getLength(); temp++) {
@@ -128,11 +101,27 @@ public class ReadXMLFile {
 			} else if (eElement.getAttribute("class").equals("tp.control.PanelDeDuracion")) {
 				PanelDeDuracion panelcito = new PanelDeDuracion(eElement.getAttribute("name"), temp);
 				panel.add(panelcito, panelcito.gbc_panel);
+			} else if (eElement.getAttribute("class").equals("tp.control.PanelDeRotacion")) {
+				PanelDeRotacion panelcito = new PanelDeRotacion(temp);
+				panel.add(panelcito, panelcito.gbc_panel);
 			}
 		}
 		return retorno;
 	}
 
-	public static void joinControls(JComboBox<String> combo) {
+	public static String getCommand(String string) {
+		NodeList listaDeApps = doc.getElementsByTagName("app");
+		Element aplicacionElegida = null;
+		Element eElement = null;
+		String retorno = "";
+		for (int temp = 0; temp < listaDeApps.getLength(); temp++) {
+			eElement = (Element) listaDeApps.item(temp);
+			if (eElement.getAttribute("tittle").equals(string))
+				aplicacionElegida = eElement;
+		}
+		aplicacionElegida = (Element) aplicacionElegida.getElementsByTagName("command").item(0);
+		retorno += aplicacionElegida.getAttribute("name");
+		retorno += aplicacionElegida.getAttribute("params");
+		return retorno;
 	}
 }
