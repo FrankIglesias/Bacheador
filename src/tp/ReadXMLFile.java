@@ -3,6 +3,7 @@ package tp;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.swing.JComboBox;
@@ -24,7 +25,7 @@ public class ReadXMLFile {
 	private static DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 	private static DocumentBuilder dBuilder;
 	private static Document doc;
-	private List<String> lista = new ArrayList<String>();
+	private List<String> listaMultimedia = new ArrayList<String>(Arrays.asList("IMAGEN", "VIDEO", "AUDIO"));
 
 	public static void initialize() {
 		try {
@@ -121,10 +122,11 @@ public class ReadXMLFile {
 		for (int temp = 0; temp < controles.getLength(); temp++) {
 			eElement = (Element) controles.item(temp);
 			if (eElement.getAttribute("class").equals("tp.control.PanelDeArchivo")) {
-				PanelDeArchivo panelDeArchivo = new PanelDeArchivo(temp);
+				PanelDeArchivo panelDeArchivo = new PanelDeArchivo(
+						eElement.getElementsByTagName("tipo-arch").item(0).getTextContent(), temp);
 				panel.add(panelDeArchivo, panelDeArchivo.gbc_panelDeArchivo);
 			} else if (eElement.getAttribute("class").equals("tp.control.PanelDeDuracion")) {
-				PanelDeDuracion panelcito = new PanelDeDuracion(eElement.getAttribute("name"), 2);
+				PanelDeDuracion panelcito = new PanelDeDuracion(eElement.getAttribute("name"), temp);
 				panel.add(panelcito, panelcito.gbc_panel);
 			}
 		}

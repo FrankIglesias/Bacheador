@@ -59,6 +59,7 @@ public class MainFrame {
 		mainframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		mainframe.setSize(new Dimension(660, 400));
 		mainframe.setMinimumSize(new Dimension(660, 400));
+		mainframe.setMaximumSize(new Dimension(660, 400));
 		crearPanelPrincipal();
 		JPanel panelDinamico = new JPanel();
 		appName = ReadXMLFile.cargarTituloApp();

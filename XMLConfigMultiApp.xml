@@ -1,83 +1,66 @@
 <TP-ACyEDA>
 	<app tittle="Audio To Video">
 		<command name="ffmpeg"
-			params="-i [AUDIO] -max [DURMAX] -loop 1 -i [IMAGE] -vcodec libx264 -preset slow -crf 20 -threads 0 -acodec copy -shortest [VIDEO]" />
+			params="-i [AUDIO] -max [TIEMPO] -loop 1 -i [IMAGE] -vcodec libx264 -preset slow -crf 20 -threads 0 -acodec copy -shortest [VIDEO]" />
 		<control name="AUDIO" class="tp.control.PanelDeArchivo" label="INPUT">
 			<def-dir>/usr/pablo/mis canciones</def-dir>
-			<tipo-arch>
-				mp3,wav,wma
-			</tipo-arch>
+			<tipo-arch>mp3,wav,wma</tipo-arch>
 		</control>
-		<control name="DURMAX" class="tp.control.PanelDeDuracion"
+		<control name="TIEMPO" class="tp.control.PanelDeDuracion"
 			label="INPUT">
 			<def-value>100</def-value>
 		</control>
 		<control name="VIDEO" class="tp.control.PanelDeArchivo" label="OUTPUT">
 			<def-dir>/usr/pablo/mis canciones</def-dir>
-			<tipo-arch>
-				mkv
-			</tipo-arch>
+			<tipo-arch>mkv</tipo-arch>
 		</control>
 		<control name="IMAGEN" class="tp.control.PanelDeArchivo"
 			label="INPUT">
 			<def-dir>/usr/pablo/mis canciones</def-dir>
-			<tipo-arch>
-				jpeg
-			</tipo-arch>
+			<tipo-arch>jpeg</tipo-arch>
 		</control>
 	</app>
 	<app tittle="Video Extract">
 		<command name="ffmpeg"
 			params=" -i [VIDEO] -ss[DESDE] -to[HASTA] -vcodec libx264 -acodec libvo_aacenc [OUTPUT] " />
-		<control name="VIDEO" class="tp.control.FileChooser" label="INPUT">
+		<control name="VIDEO" class="tp.control.PanelDeArchivo" label="INPUT">
 			<def-dir>/usr/pablo/mis canciones</def-dir>
-			<tipo-arch>
-				mp3
-			</tipo-arch>
+			<tipo-arch>mp3</tipo-arch>
 		</control>
 		<control name="DESDE" class="tp.control.PanelDeDuracion"
 			label="INPUT" />
 		<control name="HASTA" class="tp.control.PanelDeDuracion"
 			label="INPUT" />
-		<control name="OUTPUT" class="tp.control.FileChooser" label="OUTPUT">
+		<control name="OUTPUT" class="tp.control.PanelDeArchivo"
+			label="OUTPUT">
 			<def-dir>/usr/pablo/mis canciones</def-dir>
-			<tipo-arch>
-				mkv
-			</tipo-arch>
+			<tipo-arch>mkv</tipo-arch>
 		</control>
 	</app>
 	<app tittle="Rotate Video">
 		<command name="ffmpeg"
 			params="-i [VIDEO] -filter:v [ANGULO]*PI/180
-			o [ OUTPUT ]" />
-		<control name="VIDEO" class="tp.control.FileChooser" label="INPUT">
+			o [VIDEO]" />
+		<control name="VIDEO" class="tp.control.PanelDeArchivo" label="INPUT">
 			<def-dir>/usr/pablo/mis canciones</def-dir>
 			<tipo-arch>mp3</tipo-arch>
 		</control>
-		<control name="ANGULO" class="tp.control.Angulo" label="INPUT">
-		</control>
-		<control name="OUTPUT" class="tp.control.FileChooser" label="OUTPUT">
+		<control name="ANGULO" class="tp.control.Angulo" label="INPUT" />
+		<control name="VIDEO" class="tp.control.PanelDeArchivo" label="OUTPUT">
 			<def-dir>/usr/pablo/mis canciones</def-dir>
-			<tipo-arch>
-				mkv
-			</tipo-arch>
+			<tipo-arch>mkv</tipo-arch>
 		</control>
 	</app>
 	<app tittle="Join Wav">
-
 		<command name="ffmpeg" params=" -f concat -c [LISTA] -c copy  [VIDEO]" />
-		<control name="LISTA" class="tp.control.FileChooser"
+		<control name="LISTA" class="tp.control.PanelDeArchivo"
 			label="Lista de videos contenida en un txt">
 			<def-dir>/usr/pablo/mis canciones</def-dir>
-			<tipo-arch>
-				txt
-			</tipo-arch>
+			<tipo-arch>txt</tipo-arch>
 		</control>
 		<control name="OUTPUT" label="Donde guardar el video?">
 			<def-dir>/usr/pablo/mis canciones</def-dir>
-			<tipo-arch>
-				mkv
-			</tipo-arch>
+			<tipo-arch>mkv</tipo-arch>
 		</control>
 	</app>
 </TP-ACyEDA>
