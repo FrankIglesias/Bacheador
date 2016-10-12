@@ -2,9 +2,18 @@ package tp.control;
 
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -13,6 +22,8 @@ import tp.MainFrame;
 @SuppressWarnings("serial")
 public class PanelDeArchivo extends JPanel {
 	public GridBagConstraints gbc_panelDeArchivo;
+	String nombre;
+	String value;
 
 	public PanelDeArchivo(String tipo, int i) {
 		gbc_panelDeArchivo = new GridBagConstraints();
@@ -28,8 +39,21 @@ public class PanelDeArchivo extends JPanel {
 		add(textField);
 		textField.setColumns(10);
 		JButton button = new JButton("");
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				textField.setText(abrirArchivo());
+			}
+		});
 		button.setIcon(new ImageIcon(MainFrame.class.getResource("/javax/swing/plaf/metal/icons/ocean/directory.gif")));
 		button.setBounds(573, 4, 49, 27);
 		add(button);
+	}
+
+	private String abrirArchivo() {
+		String texto = "";
+		JFileChooser file = new JFileChooser();
+		file.showOpenDialog(this);
+		texto = file.getSelectedFile().getAbsolutePath();
+		return texto;
 	}
 }

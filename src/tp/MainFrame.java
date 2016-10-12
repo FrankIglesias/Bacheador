@@ -26,6 +26,8 @@ import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.FormSpecs;
 import com.jgoodies.forms.layout.RowSpec;
 
+import tp.control.PanelDeDuracion;
+
 public class MainFrame {
 	private String appName;
 	private JFrame mainframe;
@@ -117,7 +119,6 @@ public class MainFrame {
 				if (mainframe.getTitle().length() > 5) {
 					panelConScroll.removeAll();
 					comboBoxConfiguraciones.removeAllItems();
-					command = "";
 				}
 				command = ReadXMLFile.getCommand(comboBoxAplicaciones.getSelectedItem().toString());
 				mainframe.setTitle(appName + " - " + comboBoxAplicaciones.getSelectedItem().toString());
@@ -132,6 +133,10 @@ public class MainFrame {
 		panelInferior.setBounds(0, 321, 644, 40);
 		panelInferior.setLayout(null);
 		JButton botonComenzar = new JButton("Comenzar");
+		botonComenzar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
 		botonComenzar.setBounds(534, 7, 98, 26);
 		panelInferior.add(botonComenzar);
 		JProgressBar progressBar = new JProgressBar();
