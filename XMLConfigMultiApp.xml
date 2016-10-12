@@ -1,7 +1,7 @@
 <TP-ACyEDA>
 	<app tittle="Audio To Video">
 		<command name="ffmpeg "
-			params="-i [AUDIO] -max [TIEMPO] -loop 1 -i [IMAGE] -vcodec libx264 -preset slow -crf 20 -threads 0 -acodec copy -shortest [VIDEO]" />
+			params="-y -loop 1 -i [IMAGEN] -i [AUDIO] -c:v libx264 -c:a aac -strict experimental -b:a 192k -shortest -to [TIEMPO] [VIDEO]" />
 		<control name="AUDIO" class="tp.control.PanelDeArchivo" label="INPUT">
 			<def-dir>/usr/pablo/mis canciones</def-dir>
 			<tipo-arch>mp3,wav,wma</tipo-arch>
@@ -20,10 +20,10 @@
 	</app>
 	<app tittle="Video Extract">
 		<command name="ffmpeg "
-			params="-i [VIDEO] -ss[DESDE] -to[HASTA] -vcodec libx264 -acodec libvo_aacenc [OUTPUT] " />
+			params="-y -i [VIDEO] -ss [DESDE] -to [HASTA] -vcodec libx264 -c:a aac [OUTPUT] " />
 		<control name="VIDEO" class="tp.control.PanelDeArchivo" label="INPUT">
 			<def-dir>/usr/pablo/mis canciones</def-dir>
-			<tipo-arch>mp3</tipo-arch>
+			<tipo-arch>mp4</tipo-arch>
 		</control>
 		<control name="DESDE" class="tp.control.PanelDeDuracion"
 			label="INPUT" />
@@ -32,15 +32,15 @@
 		<control name="OUTPUT" class="tp.control.PanelDeArchivo"
 			label="OUTPUT">
 			<def-dir>/usr/pablo/mis canciones</def-dir>
-			<tipo-arch>mkv</tipo-arch>
+			<tipo-arch>mp4</tipo-arch>
 		</control>
 	</app>
 	<app tittle="Rotate Video">
 		<command name="ffmpeg "
-			params="-i [VIDEO] -filter:v &#34;rotate=[ANGULO]*PI/180&#34; [OUTPUT]" />
+			params="-y -i [VIDEO] -filter:v "rotate=[ANGULO]*PI/180" [OUTPUT]" />
 		<control name="VIDEO" class="tp.control.PanelDeArchivo" label="INPUT">
 			<def-dir>/usr/pablo/mis canciones</def-dir>
-			<tipo-arch>mp3</tipo-arch>
+			<tipo-arch>mp4</tipo-arch>
 		</control>
 		<control name="ANGULO" class="tp.control.PanelDeRotacion"
 			label="INPUT" />
@@ -51,7 +51,7 @@
 		</control>
 	</app>
 	<app tittle="Join Wav">
-		<command name="ffmpeg " params="-f concat -c [LISTA] -c copy  [VIDEO]" />
+		<command name="ffmpeg " params="-y -f concat -safe 0 -i [LISTA] -c copy  [VIDEO]" />
 		<control name="LISTA" class="tp.control.PanelDeArchivo"
 			label="INPUT">
 			<def-dir>/usr/pablo/mis canciones</def-dir>
