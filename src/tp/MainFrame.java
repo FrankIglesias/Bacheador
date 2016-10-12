@@ -8,16 +8,14 @@ import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.JScrollPane;
-import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.border.BevelBorder;
 
@@ -26,7 +24,7 @@ import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.FormSpecs;
 import com.jgoodies.forms.layout.RowSpec;
 
-import tp.control.PanelDeDuracion;
+import tp.control.AyEDPanel;
 
 public class MainFrame {
 	private String appName;
@@ -135,7 +133,15 @@ public class MainFrame {
 		JButton botonComenzar = new JButton("Comenzar");
 		botonComenzar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				for (int temp = 0; temp < panelConScroll.getComponentCount(); temp++) {
+					AyEDPanel panel = (AyEDPanel) panelConScroll.getComponent(temp);
+					String nombre = "[" + panel.getNombre() + "]";
+					String value = panel.getValue();
+					command = command.replace(nombre," "+ value+ " ");
+				}
+				JOptionPane.showMessageDialog(null, command);
 			}
+
 		});
 		botonComenzar.setBounds(534, 7, 98, 26);
 		panelInferior.add(botonComenzar);

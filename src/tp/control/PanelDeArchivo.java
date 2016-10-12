@@ -20,12 +20,13 @@ import javax.swing.JTextField;
 import tp.MainFrame;
 
 @SuppressWarnings("serial")
-public class PanelDeArchivo extends JPanel implements AGAPanel{
+public class PanelDeArchivo extends JPanel implements AyEDPanel {
 	public GridBagConstraints gbc_panelDeArchivo;
 	String nombre;
 	JTextField textField;
 
-	public PanelDeArchivo(String tipo, int i) {
+	public PanelDeArchivo(String tipo, int i, String nombre) {
+		this.nombre = nombre;
 		gbc_panelDeArchivo = new GridBagConstraints();
 		gbc_panelDeArchivo.fill = GridBagConstraints.BOTH;
 		gbc_panelDeArchivo.insets = new Insets(0, 0, 5, 0);
@@ -33,7 +34,7 @@ public class PanelDeArchivo extends JPanel implements AGAPanel{
 		gbc_panelDeArchivo.gridy = i;
 		setBounds(2, 2, 638, 37);
 		setLayout(null);
-		textField = new JTextField("Ruta del archivo " + tipo.toUpperCase());
+		textField = new JTextField("Seleccione un archivo del tipo: " + tipo.toUpperCase());
 		textField.setBounds(10, 8, 559, 20);
 		textField.setEditable(false);
 		add(textField);
@@ -60,5 +61,11 @@ public class PanelDeArchivo extends JPanel implements AGAPanel{
 
 	public String getValue() {
 		return textField.getText();
+	}
+
+	@Override
+	public String getNombre() {
+	
+		return nombre;
 	}
 }

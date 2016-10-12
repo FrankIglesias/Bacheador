@@ -9,11 +9,13 @@ import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 
 @SuppressWarnings("serial")
-public class PanelDeRotacion extends JPanel implements AGAPanel{
+public class PanelDeRotacion extends JPanel implements AyEDPanel {
 	public GridBagConstraints gbc_panel;
 	JSpinner spinner;
+	String nombre;
 
-	public PanelDeRotacion(int i) {
+	public PanelDeRotacion(String nombre, int i) {
+		this.nombre = nombre;
 		setLayout(null);
 		gbc_panel = new GridBagConstraints();
 		gbc_panel.insets = new Insets(0, 0, 5, 0);
@@ -32,5 +34,10 @@ public class PanelDeRotacion extends JPanel implements AGAPanel{
 
 	public String getValue() {
 		return spinner.getValue().toString();
+	}
+
+	@Override
+	public String getNombre() {
+		return nombre;
 	}
 }

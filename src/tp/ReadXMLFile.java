@@ -94,17 +94,18 @@ public class ReadXMLFile {
 			eElement = (Element) controles.item(temp);
 			if (eElement.getAttribute("class").equals("tp.control.PanelDeArchivo")) {
 				PanelDeArchivo panelDeArchivo = new PanelDeArchivo(
-						eElement.getElementsByTagName("tipo-arch").item(0).getTextContent(), temp);
+						eElement.getElementsByTagName("tipo-arch").item(0).getTextContent(), temp,
+						eElement.getAttribute("name").toString());
 				panel.add(panelDeArchivo, panelDeArchivo.gbc_panelDeArchivo);
 			} else if (eElement.getAttribute("class").equals("tp.control.PanelDeDuracion")) {
 				PanelDeDuracion panelcito = new PanelDeDuracion(eElement.getAttribute("name"), temp);
 				panel.add(panelcito, panelcito.gbc_panel);
 			} else if (eElement.getAttribute("class").equals("tp.control.PanelDeRotacion")) {
-				PanelDeRotacion panelcito = new PanelDeRotacion(temp);
+				PanelDeRotacion panelcito = new PanelDeRotacion(eElement.getAttribute("name").toString(), temp);
 				panel.add(panelcito, panelcito.gbc_panel);
 			}
 		}
-		
+
 		return retorno;
 	}
 

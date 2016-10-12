@@ -24,4 +24,13 @@ public class XMLParserTest {
 		Assert.assertTrue(ReadXMLFile.getCommand("Audio To Video").contains(
 				"-i [AUDIO] -max [TIEMPO] -loop 1 -i [IMAGE] -vcodec libx264 -preset slow -crf 20 -threads 0 -acodec copy -shortest [VIDEO]"));
 	}
+
+	@Test
+	public void testreplace() {
+
+		String aux = "hola bebe";
+		aux =aux.replace("bebe","como estas");
+		System.out.println(aux);
+		
+	}
 }
