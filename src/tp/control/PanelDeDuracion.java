@@ -10,7 +10,7 @@ import javax.swing.SpinnerNumberModel;
 
 @SuppressWarnings("serial")
 public class PanelDeDuracion extends JPanel {
-	GridBagConstraints gbc_panel;
+	public GridBagConstraints gbc_panel;
 
 	public PanelDeDuracion(String nombre, int i) {
 

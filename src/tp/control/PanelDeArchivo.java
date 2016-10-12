@@ -8,9 +8,11 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import tp.MainFrame;
+
 @SuppressWarnings("serial")
 public class PanelDeArchivo extends JPanel {
-	GridBagConstraints gbc_panelDeArchivo;
+	public GridBagConstraints gbc_panelDeArchivo;
 
 	public PanelDeArchivo(int i) {
 		gbc_panelDeArchivo = new GridBagConstraints();

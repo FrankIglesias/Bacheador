@@ -1,4 +1,4 @@
-package tp.control;
+package tp;
 
 
 import java.io.BufferedReader;
