@@ -1,6 +1,7 @@
 <TP-ACyEDA>
 	<app tittle="Audio To Video">
-		<command name="ffmpeg "
+		<command
+			name="C:\Users\Wall-E\Desktop\ffmpeg-20160825-01aee81-win64-static\bin\ffmpeg "
 			params="-i [AUDIO] -max [TIEMPO] -loop 1 -i [IMAGE] -vcodec libx264 -preset slow -crf 20 -threads 0 -acodec copy -shortest [VIDEO]" />
 		<control name="AUDIO" class="tp.control.PanelDeArchivo" label="INPUT">
 			<def-dir>/usr/pablo/mis canciones</def-dir>
@@ -19,11 +20,12 @@
 		</control>
 	</app>
 	<app tittle="Video Extract">
-		<command name="ffmpeg "
+		<command
+			name="C:\Users\Wall-E\Desktop\ffmpeg-20160825-01aee81-win64-static\bin\ffmpeg "
 			params="-i [VIDEO] -ss[DESDE] -to[HASTA] -vcodec libx264 -acodec libvo_aacenc [OUTPUT] " />
 		<control name="VIDEO" class="tp.control.PanelDeArchivo" label="INPUT">
 			<def-dir>/usr/pablo/mis canciones</def-dir>
-			<tipo-arch>mp3</tipo-arch>
+			<tipo-arch>mp4</tipo-arch>
 		</control>
 		<control name="DESDE" class="tp.control.PanelDeDuracion"
 			label="INPUT" />
@@ -36,7 +38,8 @@
 		</control>
 	</app>
 	<app tittle="Rotate Video">
-		<command name="ffmpeg "
+		<command
+			name="C:\\Users\\Wall-E\\Desktop\\ffmpeg-20160825-01aee81-win64-static\\bin\\ffmpeg "
 			params="-i [VIDEO] -filter:v &#34;rotate=[ANGULO]*PI/180&#34; [OUTPUT]" />
 		<control name="VIDEO" class="tp.control.PanelDeArchivo" label="INPUT">
 			<def-dir>/usr/pablo/mis canciones</def-dir>
@@ -51,9 +54,10 @@
 		</control>
 	</app>
 	<app tittle="Join Wav">
-		<command name="ffmpeg " params="-f concat -c [LISTA] -c copy  [VIDEO]" />
-		<control name="LISTA" class="tp.control.PanelDeArchivo"
-			label="INPUT">
+		<command
+			name="C:\Users\Wall-E\Desktop\ffmpeg-20160825-01aee81-win64-static\bin\ffmpeg "
+			params="-f concat -c [LISTA] -c copy  [VIDEO]" />
+		<control name="LISTA" class="tp.control.PanelDeArchivo" label="INPUT">
 			<def-dir>/usr/pablo/mis canciones</def-dir>
 			<tipo-arch>txt</tipo-arch>
 		</control>

@@ -7,17 +7,22 @@ import java.awt.Font;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.JScrollPane;
+import javax.swing.JTextPane;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.border.BevelBorder;
+
+import org.omg.SendingContext.RunTime;
 
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.FormLayout;
@@ -25,7 +30,6 @@ import com.jgoodies.forms.layout.FormSpecs;
 import com.jgoodies.forms.layout.RowSpec;
 
 import tp.control.AyEDPanel;
-import javax.swing.JTextPane;
 
 public class MainFrame {
 	private String appName;
@@ -34,7 +38,10 @@ public class MainFrame {
 	private JPanel panelConScroll;
 	private JPanel panelInferior;
 	public String command;
-	JTextPane ventanaModal;
+	private static JTextPane ventanaModal;
+	JScrollPane scrollModal;
+	JButton backButton;
+
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -67,15 +74,21 @@ public class MainFrame {
 		appName = ReadXMLFile.cargarTituloApp();
 		mainframe.setTitle(appName);
 		mainframe.getContentPane().setLayout(null);
-		
+
+		scrollModal = new JScrollPane();
+		scrollModal.setOpaque(false);
+		scrollModal.setVisible(false);
+		scrollModal.setBounds(0, 92, 644, 232);
+		mainframe.getContentPane().add(scrollModal);
+
 		ventanaModal = new JTextPane();
+		scrollModal.setViewportView(ventanaModal);
 		ventanaModal.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		ventanaModal.setEnabled(false);
 		ventanaModal.setEditable(false);
 		ventanaModal.setVisible(false);
 		ventanaModal.setOpaque(false);
-		ventanaModal.setBounds(0, 92, 644, 232);
-		mainframe.getContentPane().add(ventanaModal);
+		ventanaModal.setDisabledTextColor(new Color(100, 100, 100));
 		mainframe.getContentPane().add(panelDinamico);
 		panelDinamico.setLayout(null);
 		panelConScroll = new JPanel();
@@ -97,6 +110,25 @@ public class MainFrame {
 		mainframe.getContentPane().add(panelDinamico);
 		mainframe.getContentPane().add(panelSuperior);
 		mainframe.getContentPane().add(panelInferior);
+
+		backButton = new JButton("Atrás");
+		backButton.setEnabled(false);
+		backButton.setOpaque(false);
+		backButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				backButton.setEnabled(false);
+				backButton.setOpaque(false);
+				ventanaModal.setEnabled(false);
+				ventanaModal.setEditable(false);
+				ventanaModal.setVisible(false);
+				ventanaModal.setOpaque(false);
+				scrollModal.setOpaque(false);
+				scrollModal.setVisible(false);
+				ventanaModal.setText("");
+			}
+		});
+		backButton.setBounds(12, 7, 98, 26);
+		panelInferior.add(backButton);
 
 	}
 
@@ -147,19 +179,43 @@ public class MainFrame {
 					AyEDPanel panel = (AyEDPanel) panelConScroll.getComponent(temp);
 					String nombre = "[" + panel.getNombre() + "]";
 					String value = panel.getValue();
-					command = command.replace(nombre," "+ value+ " ");
+					command = command.replace(nombre, " " + value + " ");
 				}
+				backButton.setEnabled(true);
+				backButton.setOpaque(true);
+				scrollModal.setVisible(true);
+				scrollModal.setOpaque(true);
 				ventanaModal.setVisible(true);
 				ventanaModal.setOpaque(true);
-				JOptionPane.showMessageDialog(null, command);
+				ventanaModal.setAutoscrolls(true);
+				executeCommand(command);
 			}
 
 		});
 		botonComenzar.setBounds(534, 7, 98, 26);
 		panelInferior.add(botonComenzar);
-		JProgressBar progressBar = new JProgressBar();
-		progressBar.setBounds(12, 7, 510, 26);
-		panelInferior.add(progressBar);
+	}
+
+	private static void executeCommand(String command) {
+		String s = null;
+		try {
+			Process p = Runtime.getRuntime()
+					.exec("C:\\Users\\Wall-E\\Desktop\\ffmpeg-20160825-01aee81-win64-static\\bin\\ffmpeg -h ");
+			BufferedReader stdInputError = new BufferedReader(new InputStreamReader(p.getErrorStream()));
+			BufferedReader stdInput = new BufferedReader(new InputStreamReader(p.getInputStream()));
+			while ((s = stdInput.readLine()) != null) {
+				String aux = ventanaModal.getText();
+				ventanaModal.setText(aux + s + "\n");
+			}
+			while ((s = stdInputError.readLine()) != null) {
+				String aux = ventanaModal.getText();
+				ventanaModal.setText(aux + s);
+			}
+			stdInput.close();
+			stdInputError.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 
 	}
 }
