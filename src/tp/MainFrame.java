@@ -26,20 +26,12 @@ import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.FormSpecs;
 import com.jgoodies.forms.layout.RowSpec;
 
-import tp.control.PanelDeArchivo;
-import tp.control.PanelDeDuracion;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
-import javax.swing.JFormattedTextField;
-import javax.swing.JList;
-import javax.swing.JSpinner;
-import javax.swing.SpinnerNumberModel;
-
 public class MainFrame {
 	private String appName;
 	private JFrame mainframe;
-	private JPanel panelFijo;
+	private JPanel panelSuperior;
 	private JPanel panelConScroll;
+	private JPanel panelInferior;
 	public String command;
 
 	public static void main(String[] args) {
@@ -67,35 +59,13 @@ public class MainFrame {
 		mainframe.setSize(new Dimension(660, 400));
 		mainframe.setMinimumSize(new Dimension(660, 400));
 		mainframe.setMaximumSize(new Dimension(660, 400));
-		crearPanelPrincipal();
+		crearPanelSuperior();
+		crearPanelInferior();
 		JPanel panelDinamico = new JPanel();
+		panelDinamico.setBounds(0, 92, 644, 232);
 		appName = ReadXMLFile.cargarTituloApp();
 		mainframe.setTitle(appName);
-		JButton botonComenzar = new JButton("New button");
-		JProgressBar progressBar = new JProgressBar();
-		GroupLayout groupLayout = new GroupLayout(mainframe.getContentPane());
-		groupLayout.setHorizontalGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-				.addComponent(panelFijo, GroupLayout.PREFERRED_SIZE, 644, GroupLayout.PREFERRED_SIZE)
-				.addComponent(panelDinamico, GroupLayout.PREFERRED_SIZE, 644,
-						GroupLayout.PREFERRED_SIZE)
-				.addGroup(Alignment.TRAILING,
-						groupLayout.createSequentialGroup().addContainerGap()
-								.addComponent(progressBar, GroupLayout.PREFERRED_SIZE, 514, GroupLayout.PREFERRED_SIZE)
-								.addPreferredGap(ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
-								.addComponent(botonComenzar).addContainerGap()));
-		groupLayout.setVerticalGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-				.addGroup(groupLayout.createSequentialGroup()
-						.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addComponent(panelFijo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-										GroupLayout.PREFERRED_SIZE)
-								.addGroup(groupLayout.createSequentialGroup().addGap(92).addComponent(panelDinamico,
-										GroupLayout.PREFERRED_SIZE, 232, GroupLayout.PREFERRED_SIZE)))
-						.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-						.addGroup(groupLayout.createParallelGroup(Alignment.LEADING).addComponent(botonComenzar)
-								.addComponent(progressBar, GroupLayout.PREFERRED_SIZE, 26, GroupLayout.PREFERRED_SIZE))
-						.addContainerGap()));
-
-		mainframe.getContentPane().setLayout(groupLayout);
+		mainframe.getContentPane().setLayout(null);
 		mainframe.getContentPane().add(panelDinamico);
 		panelDinamico.setLayout(null);
 		panelConScroll = new JPanel();
@@ -114,11 +84,16 @@ public class MainFrame {
 		panelConScroll.setLayout(gbl_panelConScroll);
 
 		panelDinamico.add(scroll);
+		mainframe.getContentPane().add(panelDinamico);
+		mainframe.getContentPane().add(panelSuperior);
+		mainframe.getContentPane().add(panelInferior);
+
 	}
 
-	private JPanel crearPanelPrincipal() {
-		panelFijo = new JPanel();
-		panelFijo.setLayout(new FormLayout(
+	private void crearPanelSuperior() {
+		panelSuperior = new JPanel();
+		panelSuperior.setBounds(0, 0, 644, 93);
+		panelSuperior.setLayout(new FormLayout(
 				new ColumnSpec[] { ColumnSpec.decode("max(10dlu;default)"), FormSpecs.RELATED_GAP_COLSPEC,
 						ColumnSpec.decode("83px"), FormSpecs.DEFAULT_COLSPEC, FormSpecs.RELATED_GAP_COLSPEC,
 						ColumnSpec.decode("464px:grow"), FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.DEFAULT_COLSPEC, },
@@ -128,14 +103,14 @@ public class MainFrame {
 
 		JLabel Aplicacion = new JLabel("Aplicaci\u00F3n:");
 		Aplicacion.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		panelFijo.add(Aplicacion, "3, 3, left, fill");
+		panelSuperior.add(Aplicacion, "3, 3, left, fill");
 		JLabel Configuracion = new JLabel("Configuraci\u00F3n:");
 		Configuracion.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		panelFijo.add(Configuracion, "3, 5, left, fill");
+		panelSuperior.add(Configuracion, "3, 5, left, fill");
 		JComboBox<String> comboBoxConfiguraciones = new JComboBox<String>();
 		JComboBox<String> comboBoxAplicaciones = new JComboBox<String>();
-		panelFijo.add(comboBoxAplicaciones, "6, 3, fill, default");
-		panelFijo.add(comboBoxConfiguraciones, "6, 5, fill, default");
+		panelSuperior.add(comboBoxAplicaciones, "6, 3, fill, default");
+		panelSuperior.add(comboBoxConfiguraciones, "6, 5, fill, default");
 		ReadXMLFile.cargarAplicaciones(comboBoxAplicaciones);
 		comboBoxAplicaciones.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -150,7 +125,18 @@ public class MainFrame {
 						.cargarConfiguracion(comboBoxAplicaciones.getSelectedItem().toString(), panelConScroll));
 			}
 		});
+	}
 
-		return panelFijo;
+	private void crearPanelInferior() {
+		panelInferior = new JPanel();
+		panelInferior.setBounds(0, 321, 644, 40);
+		panelInferior.setLayout(null);
+		JButton botonComenzar = new JButton("Comenzar");
+		botonComenzar.setBounds(534, 7, 98, 26);
+		panelInferior.add(botonComenzar);
+		JProgressBar progressBar = new JProgressBar();
+		progressBar.setBounds(12, 7, 510, 26);
+		panelInferior.add(progressBar);
+
 	}
 }

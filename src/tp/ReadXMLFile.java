@@ -26,7 +26,6 @@ public class ReadXMLFile {
 	private static DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 	private static DocumentBuilder dBuilder;
 	private static Document doc;
-	private List<String> listaMultimedia = new ArrayList<String>(Arrays.asList("IMAGEN", "VIDEO", "AUDIO"));
 
 	public static void initialize() {
 		try {
@@ -106,6 +105,7 @@ public class ReadXMLFile {
 				panel.add(panelcito, panelcito.gbc_panel);
 			}
 		}
+		
 		return retorno;
 	}
 

@@ -7,17 +7,15 @@
 			<tipo-arch>mp3,wav,wma</tipo-arch>
 		</control>
 		<control name="TIEMPO" class="tp.control.PanelDeDuracion"
-			label="INPUT">
-			<def-value>100</def-value>
-		</control>
-		<control name="VIDEO" class="tp.control.PanelDeArchivo" label="OUTPUT">
-			<def-dir>/usr/pablo/mis canciones</def-dir>
-			<tipo-arch>mkv</tipo-arch>
-		</control>
+			label="INPUT" />
 		<control name="IMAGEN" class="tp.control.PanelDeArchivo"
 			label="INPUT">
 			<def-dir>/usr/pablo/mis canciones</def-dir>
 			<tipo-arch>jpeg</tipo-arch>
+		</control>
+		<control name="VIDEO" class="tp.control.PanelDeArchivo" label="OUTPUT">
+			<def-dir>/usr/pablo/mis canciones</def-dir>
+			<tipo-arch>mkv</tipo-arch>
 		</control>
 	</app>
 	<app tittle="Video Extract">
@@ -40,13 +38,15 @@
 	<app tittle="Rotate Video">
 		<command name="ffmpeg "
 			params="-i [VIDEO] -filter:v [ANGULO]*PI/180
-			o [VIDEO]" />
+			o [OUTPUT]" />
 		<control name="VIDEO" class="tp.control.PanelDeArchivo" label="INPUT">
 			<def-dir>/usr/pablo/mis canciones</def-dir>
 			<tipo-arch>mp3</tipo-arch>
 		</control>
-		<control name="ANGULO" class="tp.control.PanelDeRotacion" label="INPUT" />
-		<control name="VIDEO" class="tp.control.PanelDeArchivo" label="OUTPUT">
+		<control name="ANGULO" class="tp.control.PanelDeRotacion"
+			label="INPUT" />
+		<control name="OUTPUT" class="tp.control.PanelDeArchivo"
+			label="OUTPUT">
 			<def-dir>/usr/pablo/mis canciones</def-dir>
 			<tipo-arch>mkv</tipo-arch>
 		</control>
@@ -54,7 +54,7 @@
 	<app tittle="Join Wav">
 		<command name="ffmpeg " params="-f concat -c [LISTA] -c copy  [VIDEO]" />
 		<control name="LISTA" class="tp.control.PanelDeArchivo"
-			label="Lista de videos contenida en un txt">
+			label="INPUT">
 			<def-dir>/usr/pablo/mis canciones</def-dir>
 			<tipo-arch>txt</tipo-arch>
 		</control>
