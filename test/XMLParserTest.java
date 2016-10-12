@@ -1,4 +1,5 @@
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.junit.Assert;
@@ -27,10 +28,9 @@ public class XMLParserTest {
 
 	@Test
 	public void testreplace() {
-
-		String aux = "hola bebe";
-		aux =aux.replace("bebe","como estas");
-		System.out.println(aux);
+		String str  = "1,2,3,4,5";
+		List<String> items = Arrays.asList(str.split("\\s*,\\s*"));
+		Assert.assertTrue(items.contains("1"));
 		
 	}
 }

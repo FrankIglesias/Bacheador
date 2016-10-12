@@ -93,9 +93,7 @@ public class ReadXMLFile {
 		for (int temp = 0; temp < controles.getLength(); temp++) {
 			eElement = (Element) controles.item(temp);
 			if (eElement.getAttribute("class").equals("tp.control.PanelDeArchivo")) {
-				PanelDeArchivo panelDeArchivo = new PanelDeArchivo(
-						eElement.getElementsByTagName("tipo-arch").item(0).getTextContent(), temp,
-						eElement.getAttribute("name").toString());
+				PanelDeArchivo panelDeArchivo = new PanelDeArchivo(eElement, temp);
 				panel.add(panelDeArchivo, panelDeArchivo.gbc_panelDeArchivo);
 			} else if (eElement.getAttribute("class").equals("tp.control.PanelDeDuracion")) {
 				PanelDeDuracion panelcito = new PanelDeDuracion(eElement.getAttribute("name"), temp);

@@ -25,6 +25,7 @@ import com.jgoodies.forms.layout.FormSpecs;
 import com.jgoodies.forms.layout.RowSpec;
 
 import tp.control.AyEDPanel;
+import javax.swing.JTextPane;
 
 public class MainFrame {
 	private String appName;
@@ -33,7 +34,7 @@ public class MainFrame {
 	private JPanel panelConScroll;
 	private JPanel panelInferior;
 	public String command;
-
+	JTextPane ventanaModal;
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -66,6 +67,15 @@ public class MainFrame {
 		appName = ReadXMLFile.cargarTituloApp();
 		mainframe.setTitle(appName);
 		mainframe.getContentPane().setLayout(null);
+		
+		ventanaModal = new JTextPane();
+		ventanaModal.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		ventanaModal.setEnabled(false);
+		ventanaModal.setEditable(false);
+		ventanaModal.setVisible(false);
+		ventanaModal.setOpaque(false);
+		ventanaModal.setBounds(0, 92, 644, 232);
+		mainframe.getContentPane().add(ventanaModal);
 		mainframe.getContentPane().add(panelDinamico);
 		panelDinamico.setLayout(null);
 		panelConScroll = new JPanel();
@@ -139,6 +149,8 @@ public class MainFrame {
 					String value = panel.getValue();
 					command = command.replace(nombre," "+ value+ " ");
 				}
+				ventanaModal.setVisible(true);
+				ventanaModal.setOpaque(true);
 				JOptionPane.showMessageDialog(null, command);
 			}
 

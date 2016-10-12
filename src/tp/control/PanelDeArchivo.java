@@ -4,29 +4,31 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.FileFilter;
+import java.util.Arrays;
+import java.util.List;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.filechooser.FileNameExtensionFilter;
+
+import org.w3c.dom.Element;
 
 import tp.MainFrame;
 
 @SuppressWarnings("serial")
 public class PanelDeArchivo extends JPanel implements AyEDPanel {
 	public GridBagConstraints gbc_panelDeArchivo;
-	String nombre;
-	JTextField textField;
+	private String nombre;
+	private JTextField textField;
+	private String tipoArch;
 
-	public PanelDeArchivo(String tipo, int i, String nombre) {
-		this.nombre = nombre;
+	public PanelDeArchivo(Element eElement, int i) {
+		this.tipoArch = eElement.getElementsByTagName("tipo-arch").item(0).getTextContent();
+		this.nombre = eElement.getAttribute("name").toString();
 		gbc_panelDeArchivo = new GridBagConstraints();
 		gbc_panelDeArchivo.fill = GridBagConstraints.BOTH;
 		gbc_panelDeArchivo.insets = new Insets(0, 0, 5, 0);
@@ -34,7 +36,7 @@ public class PanelDeArchivo extends JPanel implements AyEDPanel {
 		gbc_panelDeArchivo.gridy = i;
 		setBounds(2, 2, 638, 37);
 		setLayout(null);
-		textField = new JTextField("Seleccione un archivo del tipo: " + tipo.toUpperCase());
+		textField = new JTextField("Seleccione un archivo del tipo: " + tipoArch.toUpperCase());
 		textField.setBounds(10, 8, 559, 20);
 		textField.setEditable(false);
 		add(textField);
@@ -57,6 +59,7 @@ public class PanelDeArchivo extends JPanel implements AyEDPanel {
 		file.showOpenDialog(this);
 		texto = file.getSelectedFile().getAbsolutePath();
 		return texto;
+
 	}
 
 	public String getValue() {
@@ -65,7 +68,7 @@ public class PanelDeArchivo extends JPanel implements AyEDPanel {
 
 	@Override
 	public String getNombre() {
-	
+
 		return nombre;
 	}
 }
