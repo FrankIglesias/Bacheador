@@ -20,10 +20,10 @@ import javax.swing.JTextField;
 import tp.MainFrame;
 
 @SuppressWarnings("serial")
-public class PanelDeArchivo extends JPanel {
+public class PanelDeArchivo extends JPanel implements AGAPanel{
 	public GridBagConstraints gbc_panelDeArchivo;
 	String nombre;
-	String value;
+	JTextField textField;
 
 	public PanelDeArchivo(String tipo, int i) {
 		gbc_panelDeArchivo = new GridBagConstraints();
@@ -33,7 +33,7 @@ public class PanelDeArchivo extends JPanel {
 		gbc_panelDeArchivo.gridy = i;
 		setBounds(2, 2, 638, 37);
 		setLayout(null);
-		JTextField textField = new JTextField("Ruta del archivo " + tipo.toUpperCase());
+		textField = new JTextField("Ruta del archivo " + tipo.toUpperCase());
 		textField.setBounds(10, 8, 559, 20);
 		textField.setEditable(false);
 		add(textField);
@@ -41,7 +41,8 @@ public class PanelDeArchivo extends JPanel {
 		JButton button = new JButton("");
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				textField.setText(abrirArchivo());
+				String aux = abrirArchivo();
+				textField.setText(aux);
 			}
 		});
 		button.setIcon(new ImageIcon(MainFrame.class.getResource("/javax/swing/plaf/metal/icons/ocean/directory.gif")));
@@ -55,5 +56,9 @@ public class PanelDeArchivo extends JPanel {
 		file.showOpenDialog(this);
 		texto = file.getSelectedFile().getAbsolutePath();
 		return texto;
+	}
+
+	public String getValue() {
+		return textField.getText();
 	}
 }

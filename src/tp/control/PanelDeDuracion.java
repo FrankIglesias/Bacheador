@@ -9,10 +9,9 @@ import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 
 @SuppressWarnings("serial")
-public class PanelDeDuracion extends JPanel {
+public class PanelDeDuracion extends JPanel implements AGAPanel{
 	public GridBagConstraints gbc_panel;
 	String nombre;
-	String value;
 	JSpinner spinner_segundos;
 	JSpinner spinner_minutos;
 	JSpinner spinner_horas;
@@ -56,9 +55,8 @@ public class PanelDeDuracion extends JPanel {
 	}
 
 	public String getValue() {
-		String resultado = spinner_horas.getValue().toString() + ":" + spinner_minutos.getValue().toString() + ":"
+		return spinner_horas.getValue().toString() + ":" + spinner_minutos.getValue().toString() + ":"
 				+ spinner_segundos.getValue().toString();
-		return resultado;
 	}
 
 }

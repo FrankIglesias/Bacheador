@@ -9,8 +9,9 @@ import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 
 @SuppressWarnings("serial")
-public class PanelDeRotacion extends JPanel {
+public class PanelDeRotacion extends JPanel implements AGAPanel{
 	public GridBagConstraints gbc_panel;
+	JSpinner spinner;
 
 	public PanelDeRotacion(int i) {
 		setLayout(null);
@@ -19,7 +20,7 @@ public class PanelDeRotacion extends JPanel {
 		gbc_panel.fill = GridBagConstraints.BOTH;
 		gbc_panel.gridx = 0;
 		gbc_panel.gridy = i;
-		JSpinner spinner = new JSpinner();
+		spinner = new JSpinner();
 		spinner.setModel(new SpinnerNumberModel(0, 0, 360, 1));
 		spinner.setBounds(305, 7, 40, 20);
 		add(spinner);
@@ -27,5 +28,9 @@ public class PanelDeRotacion extends JPanel {
 		lblSeleccioneElAngul.setBounds(37, 9, 262, 16);
 		add(lblSeleccioneElAngul);
 
+	}
+
+	public String getValue() {
+		return spinner.getValue().toString();
 	}
 }
