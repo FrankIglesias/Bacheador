@@ -39,11 +39,11 @@
 	</app>
 	<app tittle="Rotate Video">
 		<command
-			name="C:\\Users\\Wall-E\\Desktop\\ffmpeg-20160825-01aee81-win64-static\\bin\\ffmpeg "
+			name="C:\Users\Wall-E\Desktop\ffmpeg-20160825-01aee81-win64-static\bin\ffmpeg "
 			params="-y -i [VIDEO] -filter:v &#34;rotate=[ANGULO]*PI/180&#34; [OUTPUT]" />
 		<control name="VIDEO" class="tp.control.PanelDeArchivo" label="INPUT">
 			<def-dir>Desktop</def-dir>
-			<tipo-arch>mp3</tipo-arch>
+			<tipo-arch>mp4</tipo-arch>
 		</control>
 		<control name="ANGULO" class="tp.control.PanelDeRotacion"
 			label="INPUT" />

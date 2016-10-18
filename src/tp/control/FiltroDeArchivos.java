@@ -8,9 +8,9 @@ public class FiltroDeArchivos extends FileFilter {
 	private String extension;
 	private String description;
 
-	public FiltroDeArchivos(String extension) {
+	public FiltroDeArchivos(String extension, String nombre) {
 		this.extension = extension;
-		this.description = "Archivo del  tipo" + extension;
+		this.description = "Archivo de " + nombre.toLowerCase();
 	}
 
 	public boolean accept(File file) {
@@ -21,6 +21,6 @@ public class FiltroDeArchivos extends FileFilter {
 	}
 
 	public String getDescription() {
-		return description + String.format(" (*%s)", extension);
+		return description + String.format(" (*.%s)", extension);
 	}
 }

@@ -13,6 +13,7 @@ import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -28,11 +29,13 @@ public class PanelDeArchivo extends JPanel implements AyEDPanel {
 	private JTextField textField;
 	private String tipoArch;
 	private String ruta;
+	private String tipoCampo;
 
 	public PanelDeArchivo(Element eElement, int i) {
 		this.tipoArch = eElement.getElementsByTagName("tipo-arch").item(0).getTextContent();
 		this.nombre = eElement.getAttribute("name").toString();
 		this.ruta = eElement.getElementsByTagName("def-dir").item(0).getTextContent();
+		this.tipoCampo = eElement.getAttribute("label").toString();
 		gbc_panelDeArchivo = new GridBagConstraints();
 		gbc_panelDeArchivo.fill = GridBagConstraints.BOTH;
 		gbc_panelDeArchivo.insets = new Insets(0, 0, 5, 0);
@@ -62,8 +65,14 @@ public class PanelDeArchivo extends JPanel implements AyEDPanel {
 		JFileChooser file = new JFileChooser(
 				System.getProperty("user.home") + System.getProperty("file.separator") + ruta);
 		List<String> listaExtensiones = Arrays.asList(tipoArch.split(","));
-		listaExtensiones.forEach(s -> file.addChoosableFileFilter(new FiltroDeArchivos(s)));
-		file.showOpenDialog(this);
+		file.removeChoosableFileFilter(file.getFileFilter());
+		listaExtensiones.forEach(s -> file.addChoosableFileFilter(new FiltroDeArchivos(s, nombre)));
+		if (tipoCampo.equals("INPUT"))
+			file.showOpenDialog(this);
+		else if (tipoCampo.equals("OUTPUT"))
+			file.showSaveDialog(this);
+		else {
+		}
 		texto = file.getSelectedFile().getAbsolutePath();
 		return texto;
 

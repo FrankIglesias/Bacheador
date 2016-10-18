@@ -80,16 +80,18 @@ public class ReadXMLFile {
 		for (int temp = 0; temp < controles.getLength(); temp++) {
 			eElement = (Element) controles.item(temp);
 			if (eElement.getAttribute("label").equals("INPUT")) {
-				retorno += " [" + eElement.getAttribute("name") + "] ";
+				retorno += " [" + eElement.getAttribute("name") + "] +";
 			}
 		}
+
+		retorno = retorno.substring(0, retorno.lastIndexOf("+"));
 		retorno += "=";
 		for (int temp = 0; temp < controles.getLength(); temp++) {
 			eElement = (Element) controles.item(temp);
 			if (eElement.getAttribute("label").equals("OUTPUT"))
-				retorno += " [" + eElement.getAttribute("name") + "] ";
-
+				retorno += " [" + eElement.getAttribute("name") + "] +";
 		}
+		retorno = retorno.substring(0, retorno.lastIndexOf("+"));
 		for (int temp = 0; temp < controles.getLength(); temp++) {
 			eElement = (Element) controles.item(temp);
 			if (eElement.getAttribute("class").equals("tp.control.PanelDeArchivo")) {

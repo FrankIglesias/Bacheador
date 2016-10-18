@@ -30,6 +30,7 @@ import com.jgoodies.forms.layout.FormSpecs;
 import com.jgoodies.forms.layout.RowSpec;
 
 import tp.control.AyEDPanel;
+import javax.swing.JProgressBar;
 
 public class MainFrame {
 	private String appName;
@@ -115,6 +116,7 @@ public class MainFrame {
 		panelDinamico.add(scroll);
 		mainframe.getContentPane().add(panelDinamico);
 		mainframe.getContentPane().add(panelSuperior);
+
 		mainframe.getContentPane().add(panelInferior);
 
 		backButton = new JButton("Atrás");
@@ -148,29 +150,30 @@ public class MainFrame {
 				new RowSpec[] { RowSpec.decode("17px"), FormSpecs.LINE_GAP_ROWSPEC, RowSpec.decode("21px"),
 						FormSpecs.LABEL_COMPONENT_GAP_ROWSPEC, RowSpec.decode("20px"), FormSpecs.LINE_GAP_ROWSPEC,
 						RowSpec.decode("22px"), }));
-
+		JLabel configuraciones = new JLabel("");
+		panelSuperior.add(configuraciones, "6, 5");
 		JLabel Aplicacion = new JLabel("Aplicaci\u00F3n:");
 		Aplicacion.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		panelSuperior.add(Aplicacion, "3, 3, left, fill");
 		JLabel Configuracion = new JLabel("Configuraci\u00F3n:");
 		Configuracion.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		panelSuperior.add(Configuracion, "3, 5, left, fill");
-		JComboBox<String> comboBoxConfiguraciones = new JComboBox<String>();
 		JComboBox<String> comboBoxAplicaciones = new JComboBox<String>();
 		panelSuperior.add(comboBoxAplicaciones, "6, 3, fill, default");
-		panelSuperior.add(comboBoxConfiguraciones, "6, 5, fill, default");
+		comboBoxAplicaciones.addItem("Elija un Programa");
 		ReadXMLFile.cargarAplicaciones(comboBoxAplicaciones);
 		comboBoxAplicaciones.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				if (comboBoxAplicaciones.getItemAt(0).equals("Elija un Programa"))
+					comboBoxAplicaciones.removeItemAt(0);
 				if (mainframe.getTitle().length() > 5) {
 					panelConScroll.removeAll();
 					panelConScroll.setVisible(false);
 					panelConScroll.setVisible(true);
-					comboBoxConfiguraciones.removeAllItems();
 				}
 				command = ReadXMLFile.getCommand(comboBoxAplicaciones.getSelectedItem().toString());
 				mainframe.setTitle(appName + " - " + comboBoxAplicaciones.getSelectedItem().toString());
-				comboBoxConfiguraciones.addItem(ReadXMLFile
+				configuraciones.setText(ReadXMLFile
 						.cargarConfiguracion(comboBoxAplicaciones.getSelectedItem().toString(), panelConScroll));
 			}
 		});
@@ -181,6 +184,17 @@ public class MainFrame {
 		panelInferior.setBounds(0, 321, 644, 40);
 		panelInferior.setLayout(null);
 		JButton botonComenzar = new JButton("Comenzar");
+		JProgressBar progressBar = new JProgressBar();
+		Thread hilo = new Thread(new Runnable() {
+			@Override
+			public void run() {
+				while (true) {
+
+					for (int i = 0; i <= 100; i++)
+						progressBar.setValue(i);
+				}
+			}
+		});
 		botonComenzar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				for (int temp = 0; temp < panelConScroll.getComponentCount(); temp++) {
@@ -210,9 +224,13 @@ public class MainFrame {
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
+
 			}
 
 		});
+
+		progressBar.setBounds(120, 7, 404, 26);
+		panelInferior.add(progressBar);
 		botonComenzar.setBounds(534, 7, 98, 26);
 		panelInferior.add(botonComenzar);
 	}

@@ -49,11 +49,13 @@ public class PanelDeDuracion extends JPanel implements AyEDPanel {
 		spinner_horas.setBounds(173, 12, 41, 20);
 		spinner_horas.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(1)));
 		add(spinner_horas);
-
 		JLabel label = new JLabel(nombre);
 		label.setBounds(28, 14, 80, 16);
 		add(label);
-	}
+		spinner_horas.setEditor(new JSpinner.DefaultEditor(spinner_horas));
+		spinner_minutos.setEditor(new JSpinner.DefaultEditor(spinner_minutos));
+		spinner_segundos.setEditor(new JSpinner.DefaultEditor(spinner_segundos));
+		}
 
 	public String getValue() {
 		return spinner_horas.getValue().toString() + ":" + spinner_minutos.getValue().toString() + ":"
@@ -62,7 +64,7 @@ public class PanelDeDuracion extends JPanel implements AyEDPanel {
 
 	@Override
 	public String getNombre() {
-		
+
 		return nombre;
 	}
 
