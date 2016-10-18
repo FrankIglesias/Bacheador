@@ -118,7 +118,7 @@ public class ReadXMLFile {
 				aplicacionElegida = eElement;
 		}
 		aplicacionElegida = (Element) aplicacionElegida.getElementsByTagName("command").item(0);
-		retorno += aplicacionElegida.getAttribute("name");
+		retorno = aplicacionElegida.getAttribute("name");
 		retorno += aplicacionElegida.getAttribute("params");
 		return retorno;
 	}

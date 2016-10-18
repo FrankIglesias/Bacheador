@@ -10,19 +10,17 @@ import java.awt.event.ActionListener;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Arrays;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JProgressBar;
 import javax.swing.JScrollPane;
-import javax.swing.JTextPane;
+import javax.swing.JTextArea;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.border.BevelBorder;
-
-import org.omg.SendingContext.RunTime;
 
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.FormLayout;
@@ -38,7 +36,7 @@ public class MainFrame {
 	private JPanel panelConScroll;
 	private JPanel panelInferior;
 	public String command;
-	private static JTextPane ventanaModal;
+	private static JTextArea ventanaModal;
 	JScrollPane scrollModal;
 	JButton backButton;
 
@@ -81,7 +79,7 @@ public class MainFrame {
 		scrollModal.setBounds(0, 92, 644, 232);
 		mainframe.getContentPane().add(scrollModal);
 
-		ventanaModal = new JTextPane();
+		ventanaModal = new JTextArea();
 		scrollModal.setViewportView(ventanaModal);
 		ventanaModal.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		ventanaModal.setEnabled(false);
@@ -188,34 +186,24 @@ public class MainFrame {
 				ventanaModal.setVisible(true);
 				ventanaModal.setOpaque(true);
 				ventanaModal.setAutoscrolls(true);
-				executeCommand(command);
+				ventanaModal.setEditable(true);
+				try {
+					ProcessBuilder builder = new ProcessBuilder(Arrays.asList(command.split(" ")));
+					builder.redirectErrorStream(true);
+					Process p = builder.start();
+					BufferedReader r = new BufferedReader(new InputStreamReader(p.getInputStream()));
+					String line = null;
+					while ((line = r.readLine()) != null) {
+						String aux = ventanaModal.getText();
+						ventanaModal.setText(aux + line + "\n");
+					}
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 			}
 
 		});
 		botonComenzar.setBounds(534, 7, 98, 26);
 		panelInferior.add(botonComenzar);
-	}
-
-	private static void executeCommand(String command) {
-		String s = null;
-		try {
-			Process p = Runtime.getRuntime()
-					.exec("C:\\Users\\Wall-E\\Desktop\\ffmpeg-20160825-01aee81-win64-static\\bin\\ffmpeg -h ");
-			BufferedReader stdInputError = new BufferedReader(new InputStreamReader(p.getErrorStream()));
-			BufferedReader stdInput = new BufferedReader(new InputStreamReader(p.getInputStream()));
-			while ((s = stdInput.readLine()) != null) {
-				String aux = ventanaModal.getText();
-				ventanaModal.setText(aux + s + "\n");
-			}
-			while ((s = stdInputError.readLine()) != null) {
-				String aux = ventanaModal.getText();
-				ventanaModal.setText(aux + s);
-			}
-			stdInput.close();
-			stdInputError.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
 	}
 }
