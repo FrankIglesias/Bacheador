@@ -20,6 +20,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.ScrollPaneConstants;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.BevelBorder;
 
 import com.jgoodies.forms.layout.ColumnSpec;
@@ -78,7 +80,13 @@ public class MainFrame {
 		scrollModal.setVisible(false);
 		scrollModal.setBounds(0, 92, 644, 232);
 		mainframe.getContentPane().add(scrollModal);
-
+		try {
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
+				| UnsupportedLookAndFeelException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		ventanaModal = new JTextArea();
 		scrollModal.setViewportView(ventanaModal);
 		ventanaModal.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
@@ -156,6 +164,8 @@ public class MainFrame {
 			public void actionPerformed(ActionEvent e) {
 				if (mainframe.getTitle().length() > 5) {
 					panelConScroll.removeAll();
+					panelConScroll.setVisible(false);
+					panelConScroll.setVisible(true);
 					comboBoxConfiguraciones.removeAllItems();
 				}
 				command = ReadXMLFile.getCommand(comboBoxAplicaciones.getSelectedItem().toString());

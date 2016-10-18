@@ -4,18 +4,18 @@
 			name="C:\Users\Wall-E\Desktop\ffmpeg-20160825-01aee81-win64-static\bin\ffmpeg "
 			params="-y -loop 1 -i [IMAGEN] -i [AUDIO] -c:v libx264 -c:a aac -strict experimental -b:a 192k -shortest -to [TIEMPO] [VIDEO]" />
 		<control name="AUDIO" class="tp.control.PanelDeArchivo" label="INPUT">
-			<def-dir>/usr/pablo/mis canciones</def-dir>
+			<def-dir>Desktop</def-dir>
 			<tipo-arch>mp3,wav,wma</tipo-arch>
 		</control>
 		<control name="TIEMPO" class="tp.control.PanelDeDuracion"
 			label="INPUT" />
 		<control name="IMAGEN" class="tp.control.PanelDeArchivo"
 			label="INPUT">
-			<def-dir>/usr/pablo/mis canciones</def-dir>
+			<def-dir>Desktop</def-dir>
 			<tipo-arch>jpeg</tipo-arch>
 		</control>
 		<control name="VIDEO" class="tp.control.PanelDeArchivo" label="OUTPUT">
-			<def-dir>/usr/pablo/mis canciones</def-dir>
+			<def-dir>Desktop</def-dir>
 			<tipo-arch>mkv</tipo-arch>
 		</control>
 	</app>
@@ -24,7 +24,7 @@
 			name="C:\Users\Wall-E\Desktop\ffmpeg-20160825-01aee81-win64-static\bin\ffmpeg "
 			params="-y -i [VIDEO] -ss [DESDE] -to [HASTA] -vcodec libx264 -c:a aac [OUTPUT] " />
 		<control name="VIDEO" class="tp.control.PanelDeArchivo" label="INPUT">
-			<def-dir>/usr/pablo/mis canciones</def-dir>
+			<def-dir>Desktop</def-dir>
 			<tipo-arch>mp4</tipo-arch>
 		</control>
 		<control name="DESDE" class="tp.control.PanelDeDuracion"
@@ -33,7 +33,7 @@
 			label="INPUT" />
 		<control name="OUTPUT" class="tp.control.PanelDeArchivo"
 			label="OUTPUT">
-			<def-dir>/usr/pablo/mis canciones</def-dir>
+			<def-dir>Desktop</def-dir>
 			<tipo-arch>mkv</tipo-arch>
 		</control>
 	</app>
@@ -42,14 +42,14 @@
 			name="C:\\Users\\Wall-E\\Desktop\\ffmpeg-20160825-01aee81-win64-static\\bin\\ffmpeg "
 			params="-y -i [VIDEO] -filter:v &#34;rotate=[ANGULO]*PI/180&#34; [OUTPUT]" />
 		<control name="VIDEO" class="tp.control.PanelDeArchivo" label="INPUT">
-			<def-dir>/usr/pablo/mis canciones</def-dir>
+			<def-dir>Desktop</def-dir>
 			<tipo-arch>mp3</tipo-arch>
 		</control>
 		<control name="ANGULO" class="tp.control.PanelDeRotacion"
 			label="INPUT" />
 		<control name="OUTPUT" class="tp.control.PanelDeArchivo"
 			label="OUTPUT">
-			<def-dir>/usr/pablo/mis canciones</def-dir>
+			<def-dir>Desktop</def-dir>
 			<tipo-arch>mkv</tipo-arch>
 		</control>
 	</app>
@@ -58,11 +58,11 @@
 			name="C:\Users\Wall-E\Desktop\ffmpeg-20160825-01aee81-win64-static\bin\ffmpeg "
 			params="-y -f concat -safe 0 -i [LISTA] -c copy  [VIDEO]" />
 		<control name="LISTA" class="tp.control.PanelDeArchivo" label="INPUT">
-			<def-dir>/usr/pablo/mis canciones</def-dir>
+			<def-dir>Desktop</def-dir>
 			<tipo-arch>txt</tipo-arch>
 		</control>
 		<control name="OUTPUT" label="Donde guardar el video?">
-			<def-dir>/usr/pablo/mis canciones</def-dir>
+			<def-dir>Desktop</def-dir>
 			<tipo-arch>mkv</tipo-arch>
 		</control>
 	</app>

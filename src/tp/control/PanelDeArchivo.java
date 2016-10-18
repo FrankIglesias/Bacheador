@@ -4,7 +4,9 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.io.FileFilter;
+import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.List;
 
@@ -25,10 +27,12 @@ public class PanelDeArchivo extends JPanel implements AyEDPanel {
 	private String nombre;
 	private JTextField textField;
 	private String tipoArch;
+	private String ruta;
 
 	public PanelDeArchivo(Element eElement, int i) {
 		this.tipoArch = eElement.getElementsByTagName("tipo-arch").item(0).getTextContent();
 		this.nombre = eElement.getAttribute("name").toString();
+		this.ruta = eElement.getElementsByTagName("def-dir").item(0).getTextContent();
 		gbc_panelDeArchivo = new GridBagConstraints();
 		gbc_panelDeArchivo.fill = GridBagConstraints.BOTH;
 		gbc_panelDeArchivo.insets = new Insets(0, 0, 5, 0);
@@ -55,7 +59,10 @@ public class PanelDeArchivo extends JPanel implements AyEDPanel {
 
 	private String abrirArchivo() {
 		String texto = "";
-		JFileChooser file = new JFileChooser();
+		JFileChooser file = new JFileChooser(
+				System.getProperty("user.home") + System.getProperty("file.separator") + ruta);
+		List<String> listaExtensiones = Arrays.asList(tipoArch.split(","));
+		listaExtensiones.forEach(s -> file.addChoosableFileFilter(new FiltroDeArchivos(s)));
 		file.showOpenDialog(this);
 		texto = file.getSelectedFile().getAbsolutePath();
 		return texto;
