@@ -215,9 +215,15 @@ public class MainFrame {
 					ProcessBuilder builder = new ProcessBuilder(Arrays.asList(command.split(" ")));
 					builder.redirectErrorStream(true);
 					Process p = builder.start();
-					BufferedReader r = new BufferedReader(new InputStreamReader(p.getInputStream()));
+					BufferedReader readBuffer = new BufferedReader(new InputStreamReader(p.getInputStream()));
+					BufferedReader readBufferError = new BufferedReader(new InputStreamReader(p.getErrorStream()));
+
 					String line = null;
-					while ((line = r.readLine()) != null) {
+					while ((line = readBuffer.readLine()) != null) {
+						String aux = ventanaModal.getText();
+						ventanaModal.setText(aux + line + "\n");
+					}
+					while ((line = readBufferError.readLine()) != null) {
 						String aux = ventanaModal.getText();
 						ventanaModal.setText(aux + line + "\n");
 					}
