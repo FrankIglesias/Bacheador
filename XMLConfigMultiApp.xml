@@ -1,8 +1,8 @@
+
 <TP-ACyEDA>
 	<app tittle="Audio To Video">
-		<command
-			name="ffmpeg "
-			params="-y -loop 1 -i [IMAGEN] -i [AUDIO] -c:v libx264 -c:a aac -strict experimental -b:a 192k -shortest -to [TIEMPO] [VIDEO]" />
+		<command name="ffmpeg "
+			params="-loop 1 -i [IMAGEN] -i [AUDIO] -c:v libx264 -c:a aac -strict experimental -b:a 192k -shortest -t [TIEMPO] [VIDEO]" />
 		<control name="AUDIO" class="tp.control.PanelDeArchivo" label="INPUT">
 			<def-dir>Desktop</def-dir>
 			<tipo-arch>mp3,wav,wma</tipo-arch>
@@ -16,13 +16,12 @@
 		</control>
 		<control name="VIDEO" class="tp.control.PanelDeArchivo" label="OUTPUT">
 			<def-dir>Desktop</def-dir>
-			<tipo-arch>mkv</tipo-arch>
+			<tipo-arch>mp4</tipo-arch>
 		</control>
 	</app>
 	<app tittle="Video Extract">
-		<command
-			name="ffmpeg "
-			params="-ss [DESDE] -i [VIDEO] -t [HASTA] -c copy [OUTPUT] " />
+		<command name="ffmpeg "
+			params=" -i [VIDEO] -ss [DESDE] -t [HASTA] -c copy [OUTPUT] " />
 		<control name="VIDEO" class="tp.control.PanelDeArchivo" label="INPUT">
 			<def-dir>Desktop</def-dir>
 			<tipo-arch>mp4</tipo-arch>
@@ -38,8 +37,7 @@
 		</control>
 	</app>
 	<app tittle="Rotate Video">
-		<command
-			name="ffmpeg "
+		<command name="ffmpeg "
 			params="-y -i [VIDEO] -filter:v &#34;rotate=[ANGULO]*PI/180&#34; [OUTPUT]" />
 		<control name="VIDEO" class="tp.control.PanelDeArchivo" label="INPUT">
 			<def-dir>Desktop</def-dir>
@@ -54,8 +52,7 @@
 		</control>
 	</app>
 	<app tittle="Join Wav">
-		<command
-			name="ffmpeg "
+		<command name="ffmpeg "
 			params="-y -f concat -safe 0 -i [LISTA] -c copy  [VIDEO]" />
 		<control name="LISTA" class="tp.control.PanelDeArchivo" label="INPUT">
 			<def-dir>Desktop</def-dir>
