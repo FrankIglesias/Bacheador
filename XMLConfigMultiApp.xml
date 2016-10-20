@@ -12,7 +12,7 @@
 		<control name="IMAGEN" class="tp.control.PanelDeArchivo"
 			label="INPUT">
 			<def-dir>Desktop</def-dir>
-			<tipo-arch>jpeg</tipo-arch>
+			<tipo-arch>jpeg,jpg</tipo-arch>
 		</control>
 		<control name="VIDEO" class="tp.control.PanelDeArchivo" label="OUTPUT">
 			<def-dir>Desktop</def-dir>
@@ -23,8 +23,8 @@
 		<command name="ffmpeg "
 			params=" -i [VIDEO] -ss [DESDE] -t [HASTA] -c copy [OUTPUT] " />
 		<control name="VIDEO" class="tp.control.PanelDeArchivo" label="INPUT">
-			<def-dir>Desktop</def-dir>
-			<tipo-arch>mp4</tipo-arch>
+			<def-dir>Desktop\Algoritmos\Video-extract</def-dir>
+			<tipo-arch>mp4,mkv,mov,flv</tipo-arch>
 		</control>
 		<control name="DESDE" class="tp.control.PanelDeDuracion"
 			label="INPUT" />
@@ -40,7 +40,7 @@
 		<command name="ffmpeg "
 			params="-y -i [VIDEO] -filter:v &#34;rotate=[ANGULO]*PI/180&#34; [OUTPUT]" />
 		<control name="VIDEO" class="tp.control.PanelDeArchivo" label="INPUT">
-			<def-dir>Desktop</def-dir>
+			<def-dir>Desktop\Algoritmos\Rotate-video</def-dir>
 			<tipo-arch>mp4</tipo-arch>
 		</control>
 		<control name="ANGULO" class="tp.control.PanelDeRotacion"
@@ -54,13 +54,14 @@
 	<app tittle="Join Wav">
 		<command name="ffmpeg "
 			params="-y -f concat -safe 0 -i [LISTA] -c copy  [VIDEO]" />
-		<control name="LISTA" class="tp.control.PanelDeArchivo" label="INPUT">
+		<control name="LISTA" class="tp.control.PanelVariosArchivos"
+			label="INPUT">
 			<def-dir>Desktop</def-dir>
 			<tipo-arch>txt</tipo-arch>
 		</control>
 		<control name="VIDEO" class="tp.control.PanelDeArchivo" label="OUTPUT">
 			<def-dir>Desktop</def-dir>
-			<tipo-arch>mkv</tipo-arch>
+			<tipo-arch>wav</tipo-arch>
 		</control>
 	</app>
 </TP-ACyEDA>

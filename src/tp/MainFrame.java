@@ -17,6 +17,7 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JProgressBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.ScrollPaneConstants;
@@ -30,7 +31,6 @@ import com.jgoodies.forms.layout.FormSpecs;
 import com.jgoodies.forms.layout.RowSpec;
 
 import tp.control.AyEDPanel;
-import javax.swing.JProgressBar;
 
 public class MainFrame {
 	private String appName;
@@ -185,16 +185,68 @@ public class MainFrame {
 		panelInferior.setLayout(null);
 		JButton botonComenzar = new JButton("Comenzar");
 		JProgressBar progressBar = new JProgressBar();
-		Thread hilo = new Thread(new Runnable() {
+		Thread threadBar = new Thread(new Runnable() {
+
 			@Override
 			public void run() {
-				while (true) {
-
-					for (int i = 0; i <= 100; i++)
+				Boolean flag = true;
+				while (flag) {
+					for (int i = 0; i <= 100 && i >= 0; i++) {
 						progressBar.setValue(i);
+						if (Thread.currentThread().isInterrupted()) {
+							return;
+						}
+						try {
+							Thread.sleep(500);
+						} catch (InterruptedException e) {
+							return;
+						}
+
+					}
+					for (int i = 100; i >= 0 && i <= 100; i--) {
+						progressBar.setValue(i);
+						if (Thread.currentThread().isInterrupted()) {
+							return;
+						}
+						try {
+							Thread.sleep(500);
+						} catch (InterruptedException e) {
+							return;
+						}
+					}
+				}
+
+			}
+		});
+		Thread thread = new Thread(new Runnable() {
+			@Override
+			public void run() {
+				try {
+					ventanaModal.setAutoscrolls(true);
+					threadBar.start();
+					ProcessBuilder builder = new ProcessBuilder(Arrays.asList(command.split(" ")));
+					builder.redirectErrorStream(true);
+					Process p = builder.start();
+					BufferedReader readBuffer = new BufferedReader(new InputStreamReader(p.getInputStream()));
+					ventanaModal.append(command + "\n");
+					String line = null;
+					while ((line = readBuffer.readLine()) != null) {
+						ventanaModal.append(line + "\n");
+						scrollModal.getVerticalScrollBar().setValue(scrollModal.getVerticalScrollBar().getMaximum());
+					}
+					if (p.exitValue() == 0) {
+						threadBar.interrupt();
+						ventanaModal.append("Proceso Finalizado con Exito! \n");
+						scrollModal.getVerticalScrollBar().setValue(scrollModal.getVerticalScrollBar().getMaximum());
+
+					}
+
+				} catch (IOException e) {
+					e.printStackTrace();
 				}
 			}
 		});
+
 		botonComenzar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				for (int temp = 0; temp < panelConScroll.getComponentCount(); temp++) {
@@ -211,28 +263,8 @@ public class MainFrame {
 				ventanaModal.setOpaque(true);
 				ventanaModal.setAutoscrolls(true);
 				ventanaModal.setEditable(true);
-				try {
-					ProcessBuilder builder = new ProcessBuilder(Arrays.asList(command.split(" ")));
-					builder.redirectErrorStream(true);
-					Process p = builder.start();
-					BufferedReader readBuffer = new BufferedReader(new InputStreamReader(p.getInputStream()));
-					BufferedReader readBufferError = new BufferedReader(new InputStreamReader(p.getErrorStream()));
-
-					String line = null;
-					while ((line = readBuffer.readLine()) != null) {
-						String aux = ventanaModal.getText();
-						ventanaModal.setText(aux + line + "\n");
-					}
-					while ((line = readBufferError.readLine()) != null) {
-						String aux = ventanaModal.getText();
-						ventanaModal.setText(aux + line + "\n");
-					}
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-
+				thread.start();
 			}
-
 		});
 
 		progressBar.setBounds(120, 7, 404, 26);

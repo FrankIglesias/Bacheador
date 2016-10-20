@@ -19,8 +19,9 @@ import org.xml.sax.SAXException;
 import tp.control.PanelDeArchivo;
 import tp.control.PanelDeDuracion;
 import tp.control.PanelDeRotacion;
+import tp.control.PanelVariosArchivos;
 
-public class ReadXMLFile {
+class ReadXMLFile {
 	private static File fXmlFile = new File("XMLConfigMultiApp.xml");
 	private static DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 	private static DocumentBuilder dBuilder;
@@ -103,7 +104,12 @@ public class ReadXMLFile {
 			} else if (eElement.getAttribute("class").equals("tp.control.PanelDeRotacion")) {
 				PanelDeRotacion panelcito = new PanelDeRotacion(eElement.getAttribute("name").toString(), temp);
 				panel.add(panelcito, panelcito.gbc_panel);
+			} else if (eElement.getAttribute("class").equals("tp.control.PanelVariosArchivos")) {
+				PanelVariosArchivos panelcito = new PanelVariosArchivos(eElement, temp);
+				panel.add(panelcito, panelcito.gbc_panelDeArchivo);
+			
 			}
+
 		}
 
 		return retorno;

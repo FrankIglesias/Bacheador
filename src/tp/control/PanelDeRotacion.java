@@ -29,7 +29,7 @@ public class PanelDeRotacion extends JPanel implements AyEDPanel {
 		JLabel lblSeleccioneElAngul = new JLabel("Seleccione el angulo de rotaci\u00F3n deseado");
 		lblSeleccioneElAngul.setBounds(37, 9, 262, 16);
 		add(lblSeleccioneElAngul);
-
+		spinner.setEditor(new JSpinner.DefaultEditor(spinner));
 	}
 
 	public String getValue() {
