@@ -4,14 +4,14 @@
 		<command name="ffmpeg "
 			params="-loop 1 -i [IMAGEN] -i [AUDIO] -c:v libx264 -c:a aac -strict experimental -b:a 192k -shortest -t [TIEMPO] [VIDEO]" />
 		<control name="AUDIO" class="tp.control.PanelDeArchivo" label="INPUT">
-			<def-dir>Desktop</def-dir>
+			<def-dir>Desktop\Algoritmos\Audio-to-video</def-dir>
 			<tipo-arch>mp3,wav,wma</tipo-arch>
 		</control>
 		<control name="TIEMPO" class="tp.control.PanelDeDuracion"
 			label="INPUT" />
 		<control name="IMAGEN" class="tp.control.PanelDeArchivo"
 			label="INPUT">
-			<def-dir>Desktop</def-dir>
+			<def-dir>Desktop\Algoritmos\Audio-to-video</def-dir>
 			<tipo-arch>jpeg,jpg</tipo-arch>
 		</control>
 		<control name="VIDEO" class="tp.control.PanelDeArchivo" label="OUTPUT">
@@ -56,7 +56,7 @@
 			params="-y -f concat -safe 0 -i [LISTA] -c copy  [VIDEO]" />
 		<control name="LISTA" class="tp.control.PanelVariosArchivos"
 			label="INPUT">
-			<def-dir>Desktop</def-dir>
+			<def-dir>Desktop\Algoritmos\Join-wav</def-dir>
 			<tipo-arch>txt</tipo-arch>
 		</control>
 		<control name="VIDEO" class="tp.control.PanelDeArchivo" label="OUTPUT">

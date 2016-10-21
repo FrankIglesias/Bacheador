@@ -133,6 +133,7 @@ public class MainFrame {
 				scrollModal.setOpaque(false);
 				scrollModal.setVisible(false);
 				ventanaModal.setText("");
+				command = "";
 			}
 		});
 		backButton.setBounds(12, 7, 98, 26);
@@ -235,12 +236,13 @@ public class MainFrame {
 						scrollModal.getVerticalScrollBar().setValue(scrollModal.getVerticalScrollBar().getMaximum());
 					}
 					if (p.exitValue() == 0) {
-						threadBar.interrupt();
 						ventanaModal.append("Proceso Finalizado con Exito! \n");
 						scrollModal.getVerticalScrollBar().setValue(scrollModal.getVerticalScrollBar().getMaximum());
-
 					}
-
+					threadBar.interrupt();
+					progressBar.setValue(0);
+					backButton.setEnabled(true);
+					backButton.setOpaque(true);
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
@@ -255,8 +257,7 @@ public class MainFrame {
 					String value = panel.getValue();
 					command = command.replace(nombre, " " + value + " ");
 				}
-				backButton.setEnabled(true);
-				backButton.setOpaque(true);
+
 				scrollModal.setVisible(true);
 				scrollModal.setOpaque(true);
 				ventanaModal.setVisible(true);
