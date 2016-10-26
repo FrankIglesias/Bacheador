@@ -1,5 +1,22 @@
 
 <TP-ACyEDA>
+	<app tittle="Audio To Video 2">
+		<command name="C:\Users\Matias\Desktop\pruebas\ffmpeg.exe"
+			params=" -loop 1 -y -i [IMAGEN] -i [AUDIO] -acodec copy -vcodec mjpeg -shortest [VIDEO]" />
+		<control name="AUDIO" class="tp.control.PanelDeArchivo" label="INPUT">
+			<def-dir>Desktop\Algoritmos\Audio-to-video</def-dir>
+			<tipo-arch>mp3,wav,wma</tipo-arch>
+		</control>
+		<control name="IMAGEN" class="tp.control.PanelDeArchivo"
+			label="INPUT">
+			<def-dir>Desktop\Algoritmos\Audio-to-video</def-dir>
+			<tipo-arch>jpeg,jpg</tipo-arch>
+		</control>
+		<control name="VIDEO" class="tp.control.PanelDeArchivo" label="OUTPUT">
+			<def-dir>Desktop</def-dir>
+			<tipo-arch>mp4</tipo-arch>
+		</control>
+	</app>
 	<app tittle="Audio To Video">
 		<command name="ffmpeg "
 			params="-loop 1 -i [IMAGEN] -i [AUDIO] -c:v libx264 -c:a aac -strict experimental -b:a 192k -shortest -t [TIEMPO] [VIDEO]" />
