@@ -107,7 +107,6 @@ public class PanelDeArchivo extends JPanel implements AyEDPanel {
 
 	@Override
 	public String getNombre() {
-
 		return nombre;
 	}
 }

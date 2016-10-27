@@ -4,6 +4,9 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -25,8 +28,18 @@ public class PanelVariosArchivos extends JPanel implements AyEDPanel {
 	private String tipoArch;
 	private String ruta;
 	private String tipoCampo;
+	private PrintWriter writer;
 
 	public PanelVariosArchivos(Element eElement, int i) {
+		try {
+			writer = new PrintWriter("C:\\Users\\Wall-E\\Desktop\\Algoritmos\\temp.txt", "UTF-8");
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		this.tipoArch = eElement.getElementsByTagName("tipo-arch").item(0).getTextContent();
 		this.nombre = eElement.getAttribute("name").toString();
 		this.ruta = eElement.getElementsByTagName("def-dir").item(0).getTextContent();
@@ -68,13 +81,15 @@ public class PanelVariosArchivos extends JPanel implements AyEDPanel {
 			file.showSaveDialog(this);
 		else {
 		}
+
 		texto = file.getSelectedFile().getAbsolutePath();
+		writer.write("file " + texto +"\n");
 		return texto;
 
 	}
 
 	public String getValue() {
-		return textField.getText();
+		return "C:\\Users\\Wall-E\\Desktop\\Algoritmos\\temp.txt";
 	}
 
 	@Override
