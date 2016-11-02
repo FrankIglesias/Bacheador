@@ -1,8 +1,8 @@
 
 <TP-ACyEDA>
 	<app tittle="Audio To Video 2">
-		<command name="C:\Users\Matias\Desktop\pruebas\ffmpeg.exe"
-			params=" -loop 1 -y -i [IMAGEN] -i [AUDIO] -acodec copy -vcodec mjpeg -shortest [VIDEO]" />
+		<command name="ffmpeg "
+			params="-loop 1 -y -i [IMAGEN] -i [AUDIO] -acodec copy -vcodec mjpeg -shortest [VIDEO]" />
 		<control name="AUDIO" class="tp.control.PanelDeArchivo" label="INPUT">
 			<def-dir>Desktop\Algoritmos\Audio-to-video</def-dir>
 			<tipo-arch>mp3,wav,wma</tipo-arch>
